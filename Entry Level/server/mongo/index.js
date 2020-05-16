@@ -46,14 +46,17 @@ const updateTask = async (id, body) => {
   return response.value;
 };
 
-const deleteTask = async () => {};
-
-const completeTask = async (id) => {
-  // remove from active
+const deleteTask = async (id) => {
   const response = await activeCollection.findOneAndDelete({
     _id: ObjectID(id),
   });
   console.log('Deleted from active'.blue);
+  return response;
+};
+
+const completeTask = async (id) => {
+  // remove from active
+  const response = await deleteTask(id);
 
   // add in archive
   archivedCollection.insert(response.value);

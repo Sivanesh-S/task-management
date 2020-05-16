@@ -53,14 +53,15 @@ app.patch(`${apiPrefix}tasks/:taskId`, async (req, res) => {
 // PUT
 app.put(`${apiPrefix}tasks/:taskId`, async (req, res) => {
   const { taskId } = req.params;
-  const response = await completeTask(taskId);
+  await completeTask(taskId);
   res.sendStatus(204);
 });
 
 // DELETE
 app.delete(`${apiPrefix}tasks/:taskId`, async (req, res) => {
   const { taskId } = req.params;
-  res.send('Deleted' + taskId);
+  await deleteTask(taskId);
+  res.sendStatus(204);
 });
 
 app.listen(port, () => console.log('[App] Server running in port:', port));
