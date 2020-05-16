@@ -8,9 +8,16 @@ const uri = `mongodb+srv://${process.env.MY_MONGODB_USERNAME}:${process.env.MY_M
 const client = new MongoClient(uri, { useNewUrlParser: true });
 
 let activeCollection = null;
+let archivedCollection = null;
 
-const clientConnection = client.connect((err) => {
+client.connect((err) => {
   activeCollection = client.db('task-management-v1').collection('active');
+  // perform actions on the collection object
+  // client.close();
+});
+
+client.connect((err) => {
+  archivedCollection = client.db('task-management-v1').collection('archived');
   // perform actions on the collection object
   // client.close();
 });
@@ -41,7 +48,17 @@ const updateTask = async (id, body) => {
 
 const deleteTask = async () => {};
 
-const completeTask = async () => {};
+const completeTask = async (id) => {
+  // remove from active
+  const response = await activeCollection.findOneAndDelete({
+    _id: ObjectID(id),
+  });
+  console.log('Deleted from active'.blue);
+
+  // add in archive
+  archivedCollection.insert(response.value);
+  console.log('Added to archive'.blue);
+};
 
 module.exports = {
   getTasks,

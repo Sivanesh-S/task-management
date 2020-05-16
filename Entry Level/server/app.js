@@ -51,14 +51,14 @@ app.patch(`${apiPrefix}tasks/:taskId`, async (req, res) => {
 });
 
 // PUT
-app.put(`${apiPrefix}tasks/:taskId`, (req, res) => {
+app.put(`${apiPrefix}tasks/:taskId`, async (req, res) => {
   const { taskId } = req.params;
-  console.log('req.body:', req.body);
-  res.send('Archived' + taskId);
+  const response = await completeTask(taskId);
+  res.sendStatus(204);
 });
 
 // DELETE
-app.delete(`${apiPrefix}tasks/:taskId`, (req, res) => {
+app.delete(`${apiPrefix}tasks/:taskId`, async (req, res) => {
   const { taskId } = req.params;
   res.send('Deleted' + taskId);
 });
