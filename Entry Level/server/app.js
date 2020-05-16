@@ -1,6 +1,12 @@
 const express = require('express');
 const app = express();
 
+const morgan = require('morgan');
+
+const morganMiddleware = morgan('tiny');
+
+app.use(morganMiddleware);
+
 // constants
 const { apiPrefix } = require('./constants');
 
