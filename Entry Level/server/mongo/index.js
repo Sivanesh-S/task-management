@@ -17,7 +17,10 @@ const getTasks = async () => {
   return tasks;
 };
 
-const getTasksCount = () => {};
+const getTasksCount = async () => {
+  const count = await activeCollection.find().count();
+  return count;
+};
 
 const updateTask = () => {};
 

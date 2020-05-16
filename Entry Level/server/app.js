@@ -6,7 +6,7 @@ const morganMiddleware = morgan('tiny');
 
 const mongo = require('./mongo');
 
-const { getTasks } = mongo;
+const { getTasks, getTasksCount } = mongo;
 
 // Middlewares
 app.use(morganMiddleware);
@@ -23,8 +23,8 @@ app.get(`${apiPrefix}tasks`, async (req, res) => {
   res.send(tasks);
 });
 
-app.get(`${apiPrefix}tasks/count`, (req, res) => {
-  let count = 0;
+app.get(`${apiPrefix}tasks/count`, async (req, res) => {
+  let count = await getTasksCount();
   res.send({ count });
 });
 
