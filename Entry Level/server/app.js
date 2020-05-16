@@ -4,6 +4,19 @@ const app = express();
 const morgan = require('morgan');
 const morganMiddleware = morgan('tiny');
 
+const MongoClient = require('mongodb').MongoClient;
+const uri = `mongodb+srv://${process.env.MY_MONGODB_USERNAME}:${process.env.MY_MONGODB_PASSWORD}@cluster0-qm0gx.mongodb.net/test?retryWrites=true&w=majority`;
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect((err) => {
+  const collection = client.db('demoDb').collection('demoCollection');
+  collection.find().toArray((err, docs) => {
+    if (err) throw err;
+    console.log('docs:', docs);
+  });
+  // perform actions on the collection object
+  client.close();
+});
+
 // Middlewares
 app.use(morganMiddleware);
 app.use(express.json());
