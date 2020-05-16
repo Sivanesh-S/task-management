@@ -4,7 +4,9 @@ const app = express();
 const morgan = require('morgan');
 const morganMiddleware = morgan('tiny');
 
-// const mongo = require('./mongo');
+const mongo = require('./mongo');
+
+const { getTasks } = mongo;
 
 // Middlewares
 app.use(morganMiddleware);
@@ -16,18 +18,14 @@ const { apiPrefix } = require('./constants');
 const port = process.env.PORT || 3000;
 
 // GET
-app.get(`${apiPrefix}tasks`, (req, res) => {
-  res.send('Hello World');
+app.get(`${apiPrefix}tasks`, async (req, res) => {
+  const tasks = await getTasks();
+  res.send(tasks);
 });
 
 app.get(`${apiPrefix}tasks/count`, (req, res) => {
   let count = 0;
   res.send({ count });
-});
-
-app.get(`${apiPrefix}tasks/:taskId`, (req, res) => {
-  const { taskId } = req.params;
-  res.send('Post with id' + taskId);
 });
 
 // POST
@@ -36,11 +34,18 @@ app.post(`${apiPrefix}tasks`, (req, res) => {
   res.send(req.body);
 });
 
+// PATCH
+app.patch(`${apiPrefix}tasks/:taskId`, (req, res) => {
+  const { taskId } = req.params;
+  console.log('req.body:', req.body);
+  res.send('Updated' + taskId);
+});
+
 // PUT
 app.put(`${apiPrefix}tasks/:taskId`, (req, res) => {
   const { taskId } = req.params;
   console.log('req.body:', req.body);
-  res.send('Updated' + taskId);
+  res.send('Archived' + taskId);
 });
 
 // DELETE
