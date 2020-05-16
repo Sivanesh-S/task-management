@@ -25,19 +25,21 @@ app.get(`${apiPrefix}tasks/:taskId`, (req, res) => {
 
 // POST
 app.post(`${apiPrefix}tasks`, (req, res) => {
-  res.send('Hello World');
+  console.log('req.body:', req.body);
+  res.send(req.body);
 });
 
 // PUT
 app.put(`${apiPrefix}tasks/:taskId`, (req, res) => {
   const { taskId } = req.params;
-  res.send('Hello World');
+  console.log('req.body:', req.body);
+  res.send('Updated' + taskId);
 });
 
 // DELETE
 app.delete(`${apiPrefix}tasks/:taskId`, (req, res) => {
   const { taskId } = req.params;
-  res.send('Hello World');
+  res.send('Deleted' + taskId);
 });
 
 app.listen(port, () => console.log('[App] Server running in port:', port));
