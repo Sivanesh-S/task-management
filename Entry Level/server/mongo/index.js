@@ -1,6 +1,9 @@
 const colors = require('colors');
+const mongodb = require('mongodb');
 
-const MongoClient = require('mongodb').MongoClient;
+const { ObjectID } = mongodb;
+
+const MongoClient = mongodb.MongoClient;
 const uri = `mongodb+srv://${process.env.MY_MONGODB_USERNAME}:${process.env.MY_MONGODB_PASSWORD}@cluster0-qm0gx.mongodb.net/test?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true });
 
@@ -27,11 +30,18 @@ const createTask = async (body) => {
   return response.ops[0];
 };
 
-const updateTask = () => {};
+const updateTask = async (id, body) => {
+  const response = await activeCollection.findOneAndUpdate(
+    { _id: ObjectID(id) },
+    { $set: body },
+    { returnOriginal: false }
+  );
+  return response.value;
+};
 
-const deleteTask = () => {};
+const deleteTask = async () => {};
 
-const completeTask = () => {};
+const completeTask = async () => {};
 
 module.exports = {
   getTasks,

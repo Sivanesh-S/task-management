@@ -43,10 +43,11 @@ app.post(`${apiPrefix}tasks`, async (req, res) => {
 });
 
 // PATCH
-app.patch(`${apiPrefix}tasks/:taskId`, (req, res) => {
+app.patch(`${apiPrefix}tasks/:taskId`, async (req, res) => {
   const { taskId } = req.params;
-  console.log('req.body:', req.body);
-  res.send('Updated' + taskId);
+  const { body } = req;
+  const response = await updateTask(taskId, body);
+  res.send(response);
 });
 
 // PUT
