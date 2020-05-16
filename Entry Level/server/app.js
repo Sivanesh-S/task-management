@@ -6,7 +6,14 @@ const morganMiddleware = morgan('tiny');
 
 const mongo = require('./mongo');
 
-const { getTasks, getTasksCount } = mongo;
+const {
+  getTasks,
+  getTasksCount,
+  updateTask,
+  completeTask,
+  createTask,
+  deleteTask,
+} = mongo;
 
 // Middlewares
 app.use(morganMiddleware);
@@ -29,9 +36,10 @@ app.get(`${apiPrefix}tasks/count`, async (req, res) => {
 });
 
 // POST
-app.post(`${apiPrefix}tasks`, (req, res) => {
-  console.log('req.body:', req.body);
-  res.send(req.body);
+app.post(`${apiPrefix}tasks`, async (req, res) => {
+  const body = req.body;
+  const response = await createTask(body);
+  res.send(response);
 });
 
 // PATCH

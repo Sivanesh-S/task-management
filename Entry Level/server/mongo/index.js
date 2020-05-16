@@ -22,9 +22,12 @@ const getTasksCount = async () => {
   return count;
 };
 
-const updateTask = () => {};
+const createTask = async (body) => {
+  const response = await activeCollection.insert(body);
+  return response.ops[0];
+};
 
-const createTask = () => {};
+const updateTask = () => {};
 
 const deleteTask = () => {};
 
