@@ -1,0 +1,19 @@
+.tasks {
+  height: 80vh;
+  background-color: #323232;
+  mix-blend-mode: normal;
+  border: 1px solid #000000;
+  box-shadow: 0px 0px 80px rgba(0, 0, 0, 0.7);
+  border-radius: 20px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.normal {
+  display: block;
+}
+
+.companyTitle {
+  margin-top: 0px;
+  padding-top: 10px;
+}
