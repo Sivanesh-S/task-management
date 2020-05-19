@@ -1,0 +1,13 @@
+.datePicker {
+  color: #e3e3e3;
+  stroke: #e3e3e3;
+  /* background-color: #e3e3e3; */
+}
+
+.createTask {
+  text-align: center;
+}
+
+.task {
+  width: 100px;
+}

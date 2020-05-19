@@ -1,14 +1,11 @@
-.App {
-  margin: 0px;
-  padding: 0px;
-  width: 100vw;
-  height: 100vh;
-  text-align: center;
-  background-color: #14ffec;
-  color: #212121;
+.w-full {
+  width: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.test {
+  background-color: crimson;
+}
+
+.center {
+  text-align: center;
 }

@@ -7,13 +7,24 @@
   border-radius: 20px;
   width: 80%;
   margin: 0 auto;
+  overflow-y: scroll;
 }
 
 .normal {
   display: block;
 }
 
-.companyTitle {
-  margin-top: 0px;
-  padding-top: 10px;
+.app {
+  margin: 0px;
+  padding: 0px;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  background-color: #14ffec;
+  color: #212121;
+}
+
+.app-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
