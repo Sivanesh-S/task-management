@@ -1,0 +1,31 @@
+{
+  "name": "twelve-tasks-server",
+  "version": "1.0.0",
+  "description": "A Server for Twelve tasks app",
+  "main": "app.js",
+  "scripts": {
+    "start": "node -r dotenv/config app",
+    "dev": "nodemon -r dotenv/config app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "twelve",
+    "tasks",
+    "mern",
+    "mongo",
+    "express",
+    "react",
+    "node",
+    "management"
+  ],
+  "author": "Sivanesh Shanmugam",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "google-auth-library": "^6.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
