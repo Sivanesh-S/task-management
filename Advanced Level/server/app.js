@@ -1,14 +1,15 @@
 const express = require('express');
 const app = express();
 
-const port = process.env.PORT || 5001;
-
 // token confirmation
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+const port = process.env.PORT || 5001;
 
 app.post('/google-oauth', (req, res) => {
   const oauthToken = req.headers.authorization.split('token ')[1];
@@ -22,7 +23,10 @@ app.get('/google-oauth', (req, res) => {
   res.send('Working');
 });
 
-// app.post('/')
+app.post('/api/v1/basic-auth', (req, res) => {
+  console.log('req.body:', req.body);
+  res.send('success');
+});
 
 app.listen(port, () => console.log('Server is running in port:', port));
 
