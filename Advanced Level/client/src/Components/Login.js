@@ -12,7 +12,7 @@ function Login() {
     const { tokenId, googleId } = res;
     setUserId(googleId);
     console.log('Logged in res:', res);
-    fetch('/google-oauth', {
+    fetch('/google/login', {
       method: 'POST',
       headers: {
         Authorization: `token ${tokenId}`,
@@ -27,7 +27,7 @@ function Login() {
   });
 
   const onLogoutSuccess = () => {
-    fetch('/google-oauth-logout', {
+    fetch('/google/logout', {
       method: 'POST',
       body: JSON.stringify({ userId }),
       headers: {
