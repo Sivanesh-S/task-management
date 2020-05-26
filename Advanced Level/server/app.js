@@ -26,6 +26,14 @@ app.post('/google-oauth', async (req, res) => {
   }
 });
 
+app.post('/google-oauth-logout', async (req, res) => {
+  const { userId } = req.body;
+
+  console.log('Logged out userId:', userId);
+  res.sendStatus(200);
+  // handle logged off logic
+});
+
 // test
 app.get('/google-oauth', (req, res) => {
   console.log('resp Received:');
