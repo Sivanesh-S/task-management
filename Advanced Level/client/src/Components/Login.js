@@ -9,6 +9,7 @@ function Login() {
 
   const onSuccess = (res) => {
     const { tokenId } = res;
+    console.log('Logged in res:', res);
     fetch('/google-oauth', {
       method: 'POST',
       headers: {

@@ -12,10 +12,18 @@ app.use(express.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 5001;
 
-app.post('/google-oauth', (req, res) => {
+app.post('/google-oauth', async (req, res) => {
   const oauthToken = req.headers.authorization.split('token ')[1];
   console.log('oauthToken obtained');
-  verify(oauthToken).catch(console.error);
+
+  try {
+    const userId = await verify(oauthToken);
+    res.send({ userId });
+
+    // store them in db with respective user
+  } catch {
+    res.sendStatus(403);
+  }
 });
 
 // test
@@ -47,7 +55,10 @@ async function verify(token) {
     //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
   });
   const payload = ticket.getPayload();
-  const userId = payload['sub'];
-  // If request specified a G Suite domain:
-  // const domain = payload['hd'];
+
+  console.log('payload:', payload);
+
+  const { sub } = payload;
+  const userId = sub;
+  return userId;
 }
