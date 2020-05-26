@@ -7,13 +7,14 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // middlewares
 app.use(express.json());
+// for form data
 app.use(express.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 5001;
 
 app.post('/google-oauth', (req, res) => {
   const oauthToken = req.headers.authorization.split('token ')[1];
-  console.log('oauthToken:', oauthToken);
+  console.log('oauthToken obtained');
   verify(oauthToken).catch(console.error);
 });
 
