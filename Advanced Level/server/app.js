@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
 
+// morgan
+const morgan = require('morgan');
+const morganMiddleware = morgan('tiny');
+
 // routes
 const basicAuth = require('./routes/auth/basic-auth');
 const googleOAuth = require('./routes/auth/google-oauth');
@@ -9,6 +13,8 @@ const googleOAuth = require('./routes/auth/google-oauth');
 app.use(express.json());
 // for form data
 app.use(express.urlencoded({ extended: true }));
+// middleware which logs all network requests
+app.use(morganMiddleware);
 
 // Routes (Also considered as a middleware - Last middleware)
 app.use('/auth', basicAuth);
