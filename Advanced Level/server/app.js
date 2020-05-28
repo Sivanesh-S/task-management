@@ -8,6 +8,7 @@ const morganMiddleware = morgan('tiny');
 // routes
 const basicAuth = require('./routes/auth/basic-auth');
 const googleOAuth = require('./routes/auth/google-oauth');
+const api = require('./routes/api/task');
 
 // middlewares
 app.use(express.json());
@@ -19,6 +20,7 @@ app.use(morganMiddleware);
 // Routes (Also considered as a middleware - Last middleware)
 app.use('/auth', basicAuth);
 app.use('/google', googleOAuth);
+app.use('/api/v2', api);
 
 const port = process.env.PORT || 5001;
 
