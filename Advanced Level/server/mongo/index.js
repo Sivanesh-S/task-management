@@ -99,7 +99,14 @@ const getUser = async () => {
   return userIdClientMapper(response);
 };
 
-const updateUser = async () => {};
+const updateUser = async (userId, body) => {
+  const response = await userCollection.findOneAndUpdate(
+    { _id: ObjectID(userId) },
+    { $set: body },
+    { returnOriginal: false }
+  );
+  return response;
+};
 
 const deleteUser = async () => {};
 
