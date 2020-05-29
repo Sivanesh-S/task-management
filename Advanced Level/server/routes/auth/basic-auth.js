@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+// db
+const { ObjectID } = require('mongodb');
+
 // password authentication
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -27,7 +30,8 @@ router.post('/signup', (req, res) => {
     username,
     process.env.JWT_PRIVATE_KEY
   );
-  const token = jwt.sign({ username }, process.env.JWT_PRIVATE_KEY);
+  const userId = new ObjectID();
+  const token = jwt.sign({ userId }, process.env.JWT_PRIVATE_KEY);
   console.log('token:', token);
 
   // dummy check
