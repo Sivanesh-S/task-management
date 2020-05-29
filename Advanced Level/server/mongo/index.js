@@ -1,5 +1,8 @@
 const mongodb = require('mongodb');
 
+// utils
+const { userIdClientMapper } = require('../utils');
+
 const { ObjectID } = mongodb;
 
 const MongoClient = mongodb.MongoClient;
@@ -11,7 +14,9 @@ const client = new MongoClient(uri, {
 
 let activeCollection = null;
 let archivedCollection = null;
+let userCollection = null;
 
+// collection connection instance
 client.connect((err) => {
   activeCollection = client.db('task-management-v1').collection('active');
   // perform actions on the collection object
@@ -20,6 +25,12 @@ client.connect((err) => {
 
 client.connect((err) => {
   archivedCollection = client.db('task-management-v1').collection('archived');
+  // perform actions on the collection object
+  // client.close();
+});
+
+client.connect((err) => {
+  userCollection = client.db('task-management-v1').collection('user');
   // perform actions on the collection object
   // client.close();
 });
@@ -65,7 +76,7 @@ const completeTask = async (id) => {
   console.log('Added to archive');
 };
 
-// Archived
+// -- Archived --
 const getArchived = async () => {
   const response = '';
   return response;
@@ -81,6 +92,17 @@ const deleteArchived = async () => {
   return true; // false
 };
 
+// -- users --
+const getUser = async () => {
+  const response = await userCollection.find().toArray();
+  // console.log('response:', response);
+  return userIdClientMapper(response);
+};
+
+const updateUser = async () => {};
+
+const deleteUser = async () => {};
+
 module.exports = {
   getTasks,
   getTasksCount,
@@ -93,4 +115,9 @@ module.exports = {
   getArchived,
   restoreArchived,
   deleteArchived,
+
+  // user
+  getUser,
+  updateUser,
+  deleteUser,
 };
