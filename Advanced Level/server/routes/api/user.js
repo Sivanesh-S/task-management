@@ -28,7 +28,7 @@ router.patch('/user/:userId', async (req, res) => {
     });
     res.status(status).send(response);
   } catch (err) {
-    res.send(400, err.message);
+    res.status(400).send(err.message);
   }
 });
 
@@ -39,7 +39,7 @@ router.delete('/user/:userId', async (req, res) => {
 
     res.status(status).send(response);
   } catch (err) {
-    res.send(408, { message: `There's some issue in your request` });
+    res.status(408).send({ message: `There's some issue in your request` });
   }
 });
 
