@@ -1,7 +1,7 @@
 const mongodb = require('mongodb');
 
 // utils
-const { userIdClientMapper, isUpdated } = require('../utils');
+const { isUpdated } = require('../utils');
 
 const { ObjectID } = mongodb;
 
@@ -95,7 +95,7 @@ const deleteArchived = async () => {
 // -- users --
 const getUser = async () => {
   const response = await userCollection.find().toArray();
-  return userIdClientMapper(response);
+  return response;
 };
 
 const updateUser = async (userId, body) => {
