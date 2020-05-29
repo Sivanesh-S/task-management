@@ -95,7 +95,6 @@ const deleteArchived = async () => {
 // -- users --
 const getUser = async () => {
   const response = await userCollection.find().toArray();
-  // console.log('response:', response);
   return userIdClientMapper(response);
 };
 
@@ -108,7 +107,23 @@ const updateUser = async (userId, body) => {
   return response;
 };
 
-const deleteUser = async () => {};
+const deleteUser = async (userId) => {
+  try {
+    const response = await userCollection.findOneAndDelete({
+      _id: ObjectID(userId),
+    });
+    if (response.lastErrorObject.n) {
+      const { username, _id, email, fullName } = response.value;
+
+      return [200, { username, _id, fullName, email }];
+    } else {
+      return [400, { message: 'No users deleted' }];
+    }
+  } catch (err) {
+    console.log('err:', err.message);
+    return [400, { message: err.message }];
+  }
+};
 
 module.exports = {
   getTasks,

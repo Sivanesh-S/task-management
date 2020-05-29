@@ -17,9 +17,15 @@ router.patch('/user/:userId', async (req, res) => {
 });
 
 router.delete('/user/:userId', async (req, res) => {
-  const { userId } = req.params;
-  await deleteUser(userId);
-  res.sendStatus(204);
+  try {
+    const { userId } = req.params;
+    // need to check there should be no key for userId, _id, username etc and send bad request respectively
+    const [status, response] = await deleteUser(userId);
+
+    res.status(status).send(response);
+  } catch (err) {
+    res.send(408, { message: `There's some issue in your request` });
+  }
 });
 
 module.exports = router;
