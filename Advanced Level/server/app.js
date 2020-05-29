@@ -12,11 +12,15 @@ const api = require('./routes/api/task');
 const user = require('./routes/api/user');
 
 // middlewares
+const authenticationMiddleware = require('./authentication/authenticationMiddleware');
 app.use(express.json());
 // for form data
 app.use(express.urlencoded({ extended: true }));
 // middleware which logs all network requests
 app.use(morganMiddleware);
+
+// authenticationLayer
+app.use(authenticationMiddleware);
 
 // Routes (Also considered as a middleware - Last middleware)
 app.use('/auth', basicAuth);
