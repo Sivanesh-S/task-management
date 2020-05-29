@@ -5,6 +5,14 @@ const userIdClientMapper = (iterator) =>
     return i;
   });
 
+const isUpdated = (response) => {
+  if (response.lastErrorObject.n) {
+    return true;
+  }
+  return false;
+};
+
 module.exports = {
   userIdClientMapper,
+  isUpdated,
 };

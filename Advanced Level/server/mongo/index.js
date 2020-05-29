@@ -1,7 +1,7 @@
 const mongodb = require('mongodb');
 
 // utils
-const { userIdClientMapper } = require('../utils');
+const { userIdClientMapper, isUpdated } = require('../utils');
 
 const { ObjectID } = mongodb;
 
@@ -99,12 +99,20 @@ const getUser = async () => {
 };
 
 const updateUser = async (userId, body) => {
-  const response = await userCollection.findOneAndUpdate(
-    { _id: ObjectID(userId) },
-    { $set: body },
-    { returnOriginal: false }
-  );
-  return response;
+  try {
+    const response = await userCollection.findOneAndUpdate(
+      { _id: ObjectID(userId) },
+      { $set: body },
+      { returnOriginal: false }
+    );
+
+    if (isUpdated(response)) {
+      return [204];
+    }
+    return [400, { message: 'Not updated user' }];
+  } catch (err) {
+    return [400, { message: err.message }];
+  }
 };
 
 const deleteUser = async (userId) => {
@@ -112,7 +120,7 @@ const deleteUser = async (userId) => {
     const response = await userCollection.findOneAndDelete({
       _id: ObjectID(userId),
     });
-    if (response.lastErrorObject.n) {
+    if (isUpdated(response)) {
       const { username, _id, email, fullName } = response.value;
 
       return [200, { username, _id, fullName, email }];

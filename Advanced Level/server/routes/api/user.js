@@ -11,15 +11,30 @@ router.get('/user', async (req, res) => {
 });
 
 router.patch('/user/:userId', async (req, res) => {
-  const { userId } = req.params;
-  await updateUser(userId, req.body);
-  res.sendStatus(204);
+  try {
+    const { userId } = req.params;
+
+    // only keys allowed to modify
+    const { fullName, username, photoUrl } = req.body;
+
+    if (!(fullName || username || photoUrl)) {
+      throw new Error('Only keys username, fullName, photoUrl are allowed');
+    }
+
+    const [status, response] = await updateUser(userId, {
+      fullName,
+      username,
+      photoUrl,
+    });
+    res.status(status).send(response);
+  } catch (err) {
+    res.send(400, err.message);
+  }
 });
 
 router.delete('/user/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
-    // need to check there should be no key for userId, _id, username etc and send bad request respectively
     const [status, response] = await deleteUser(userId);
 
     res.status(status).send(response);
