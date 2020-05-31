@@ -28,12 +28,14 @@ const authenticationMiddleware = async (req, res, next) => {
       const googleUserObj = await googleAuth(oauthToken);
       req.googleUserObj = googleUserObj;
       userId = googleUserObj.userId;
-    } else {
+    } else if (authToken.includes('bearer ')) {
       const basicAuthToken = authToken.split('bearer ')[1];
       userId = await basicAuth(basicAuthToken);
       if (!userId) {
-        res.sendStatus(401);
+        return res.sendStatus(401);
       }
+    } else {
+      return res.sendStatus(401);
     }
     req.authUserId = userId;
     console.log('came to middleware', userId);
