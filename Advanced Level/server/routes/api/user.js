@@ -15,15 +15,15 @@ router.patch('/user/:userId', async (req, res) => {
     const { userId } = req.params;
 
     // only keys allowed to modify
-    const { fullName, username, photoUrl } = req.body;
+    const { fullName, email, photoUrl } = req.body;
 
-    if (!(fullName || username || photoUrl)) {
-      throw new Error('Only keys username, fullName, photoUrl are allowed');
+    if (!(fullName || email || photoUrl)) {
+      throw new Error('Only keys email, fullName, photoUrl are allowed');
     }
 
     const [status, response] = await updateUser(userId, {
       fullName,
-      username,
+      email,
       photoUrl,
     });
     res.status(status).send(response);

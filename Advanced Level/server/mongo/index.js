@@ -121,9 +121,9 @@ const deleteUser = async (userId) => {
       _id: ObjectID(userId),
     });
     if (isUpdated(response)) {
-      const { username, _id, email, fullName } = response.value;
+      const { _id, email, fullName } = response.value;
 
-      return [200, { username, _id, fullName, email }];
+      return [200, { _id, fullName, email }];
     } else {
       return [400, { message: 'No users deleted' }];
     }

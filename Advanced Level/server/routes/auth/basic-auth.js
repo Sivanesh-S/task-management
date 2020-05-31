@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt');
 
 router.post('/signup', (req, res) => {
   console.log('req.body:', req.body);
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   // encrypt password
   bcrypt.hash(password, 10, (err, encryptedPassword) => {
@@ -26,8 +26,8 @@ router.post('/signup', (req, res) => {
 
   // create token
   console.log(
-    'username, process.env.JWT_PRIVATE_KEY:',
-    username,
+    'email, process.env.JWT_PRIVATE_KEY:',
+    email,
     process.env.JWT_PRIVATE_KEY
   );
   const userId = new ObjectID();
@@ -39,6 +39,17 @@ router.post('/signup', (req, res) => {
   // console.log('decoded:', decoded);
 
   res.send({ token });
+});
+
+router.post('/login', (req, res) => {
+  const { email, password } = req.body;
+});
+
+router.post('/logout', (req, res) => {
+  const userId = req.authUserId;
+
+  //  I don't no what to do in server
+  res.sendStatus(204);
 });
 
 module.exports = router;

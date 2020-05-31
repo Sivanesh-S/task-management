@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { validateEmail } from '../utils';
 
 function SignUp() {
-  const [username, setUsername] = useState('');
+  const [fullName, setFullName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -21,10 +21,9 @@ function SignUp() {
       return;
     }
 
-    console.log('event:', event, username, password);
     fetch('/auth/signup', {
       method: 'POST',
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password, fullName }),
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -32,8 +31,8 @@ function SignUp() {
     });
   };
 
-  const handleUsername = (e) => {
-    setUsername(e.target.value);
+  const handleFullName = (e) => {
+    setFullName(e.target.value);
   };
 
   const handlePassword = (e) => {
@@ -60,12 +59,12 @@ function SignUp() {
           ></input>
         </div>
         <div>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="fullName">fullName</label>
           <input
-            type="username"
-            name="username"
-            id="username"
-            onChange={handleUsername}
+            type="text"
+            name="fullName"
+            id="fullName"
+            onChange={handleFullName}
           ></input>
         </div>
         <div>
