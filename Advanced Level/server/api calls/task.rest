@@ -1,0 +1,48 @@
+# @authToken = bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZWQxNjY5OTM4MWE1ZTNlNDQyZDJlYWEiLCJpYXQiOjE1OTA3ODE1OTN9._iACQ7l5l3Dg_ZSKy_qm7N3NJlc729_-PHfEYaoUg58
+@authToken = Bearer google eyJhbGciOiJSUzI1NiIsImtpZCI6ImZiOGNhNWI3ZDhkOWE1YzZjNjc4ODA3MWU4NjZjNmM0MGYzZmMxZjkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNDE2OTgyNjg2MzgzLWJxbm81OTZzaTlidXRuOW1hdG8zYTI4NnR2Z3VnaTJkLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNDE2OTgyNjg2MzgzLWJxbm81OTZzaTlidXRuOW1hdG8zYTI4NnR2Z3VnaTJkLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTA5Mjg1NzE1NzY4NTM1MjcwMTY2IiwiZW1haWwiOiJzaXZhbmVzaC5jYWxsQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiSzFia2tDc0dHQUI0OU93RmMzOWJ0QSIsIm5hbWUiOiJTaXZhbmVzaCBTaGFubXVnYW0iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tLy1oSVNleFpzaTlWWS9BQUFBQUFBQUFBSS9BQUFBQUFBQUFBQS9BTVp1dWNuUUdwazd0U3ZaOGo4djBaWUtVblNBS2U1VGhnL3M5Ni1jL3Bob3RvLmpwZyIsImdpdmVuX25hbWUiOiJTaXZhbmVzaCIsImZhbWlseV9uYW1lIjoiU2hhbm11Z2FtIiwibG9jYWxlIjoiZW4iLCJpYXQiOjE1OTA5NTc1OTcsImV4cCI6MTU5MDk2MTE5NywianRpIjoiYzQzMTU3MGI5ZGVkMzRhZTllOGZiNjIwOGNhZTBiNTBmMjM0NjdkMyJ9.R4ZmIL3KxkUJw-07gNlIipgpr5CUDYGbnHafs9BijpgBdWOwUKyDDkxzfCKkQXH92OCxeOlcXxvcmCHQw4yeMdXtQfN7V6KV2OzFf_mM5_AkKsQjxLizt7ViSUaEIgTv71DpQ8s6rrR9mdMURrpCVYnRDAdkaTA5U8IWTrOJGdt-8jifimil22iMv9duiJTDlvRl_SGqZ33Og0KniMD7OMrNRXUEa0zEXCn2tpVkAep5q073ds05k9q15_pmDEHj5Yj5JfrEa5-wa0Gy6NXe2b0l2aMDXIXRsobip7XWI9sg90Sf2gEXhXipp6m1HxMusBrq7dTuHst1F7j19MCChA
+
+# Links
+@taskLink = http://localhost:8080/api/v2/tasks
+@archivedLink = http://localhost:8080/api/v2/archived
+
+### GET Tasks
+GET {{taskLink}}
+Authorization: {{authToken}}
+
+### Get Task count 
+GET {{taskLink}}/count
+Authorization: {{authToken}}
+
+### Create Task
+POST {{taskLink}}
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+  "name": "ohoo"
+}
+
+### Delete Tasks
+DELETE  {{taskLink}}/5ed416583dba04163cc5d92b
+Authorization: {{authToken}}
+
+### Complete task 
+POST {{archivedLink}}/5ed4165a3dba04163cc5d92e 
+Authorization: {{authToken}}
+
+### Get archived task 
+GET {{archivedLink}}
+Authorization: {{authToken}}
+
+### Restore a archived task to active
+PUT {{archivedLink}}/5ed4165a3dba04163cc5d92e
+Authorization: {{authToken}}
+
+### Clear all archived tasks
+DELETE {{archivedLink}}/
+Authorization: {{authToken}}
+
+
+
+
+
