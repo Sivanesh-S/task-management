@@ -109,24 +109,15 @@ const completeTask = async (userId, taskId) => {
 
 // -- Archived --
 const getArchived = async (userId) => {
-  const response = archivedCollection.find({ userId }).toArray();
-
-  console.log('response:', response);
+  const response = await archivedCollection.find({ userId }).toArray();
   return response;
 };
 
 const restoreArchived = async (userId, taskId) => {
   // remove from archived
 
-  try {
-    let newa = ObjectID(taskId);
-    console.log('taskId:', newa);
-  } catch (err) {
-    console.log('err hey:', err);
-  }
-  const [, response] = await deleteOneArchived(userId, taskId);
-
-  if (response.value) {
+  const [status, response] = await deleteOneArchived(userId, taskId);
+  if (status === 204) {
     // add in active
     await activeCollection.insertOne(response.value);
     console.log('Added to archive');
