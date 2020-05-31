@@ -36,44 +36,57 @@ client.connect((err) => {
   // client.close();
 });
 
-const getTasks = async () => {
-  const tasks = await activeCollection.find().toArray();
+const getTasks = async (userId) => {
+  const tasks = await activeCollection.find({ userId }).toArray();
   return tasks;
 };
 
-const getTasksCount = async () => {
-  const count = await activeCollection.find().count();
+const getTasksCount = async (userId) => {
+  const count = await activeCollection.find({ userId }).count();
   return count;
 };
 
-const createTask = async (body) => {
+const createTask = async (userId, body) => {
+  body.userId = userId;
   const response = await activeCollection.insert(body);
   return response.ops[0];
 };
 
-const updateTask = async (id, body) => {
-  const response = await activeCollection.findOneAndUpdate(
-    { _id: ObjectID(id) },
-    { $set: body },
-    { returnOriginal: false }
-  );
-  return response.value;
+const updateTask = async (userId, taskId, body) => {
+  try {
+    console.log('userId, taskId, body:', userId, taskId, body);
+    const response = await activeCollection.findOneAndUpdate(
+      { _id: ObjectID(taskId), userId },
+      { $set: body },
+      { returnOriginal: false }
+    );
+
+    if (isUpdated(response)) {
+      return [200, response.value];
+    } else {
+      throw new Error('Not updated');
+    }
+  } catch (err) {
+    console.log('err.message:', err.message);
+    return [400, err.message];
+  }
 };
 
-const deleteTask = async (id) => {
+const deleteTask = async (userId, taskId) => {
   const response = await activeCollection.findOneAndDelete({
-    _id: ObjectID(id),
+    _id: ObjectID(taskId),
+    userId,
   });
   console.log('Deleted from active');
   return response;
 };
 
-const completeTask = async (id) => {
+const completeTask = async (userId, taskId) => {
   // remove from active
-  const response = await deleteTask(id);
+  const response = await deleteTask(userId, taskId);
 
   // add in archive
-  archivedCollection.insert(response.value);
+  archivedCollection.insertOne(response.value);
   console.log('Added to archive');
 };
 
