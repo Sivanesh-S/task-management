@@ -110,7 +110,7 @@ const createUser = async (userObj) => {
   }
 };
 
-const getUser = async (email) => {
+const getUserByMail = async (email) => {
   const response = await userCollection.find({ email }).toArray();
   if (response.length) {
     return response[0];
@@ -153,6 +153,23 @@ const deleteUser = async (userId) => {
   }
 };
 
+// -- Google User --
+const createGoogleUser = async (userId, email, fullName, photoUrl) => {
+  await userCollection.insertOne({
+    email,
+    userId,
+    fullName,
+    photoUrl,
+  });
+};
+
+const getGoogleUser = async (userId) => {
+  const response = await userCollection.find({ userId }).toArray();
+  if (response.length) {
+    return response[0];
+  }
+  return null;
+};
 module.exports = {
   getTasks,
   getTasksCount,
@@ -168,7 +185,11 @@ module.exports = {
 
   // user
   createUser,
-  getUser,
+  getUserByMail,
   updateUser,
   deleteUser,
+
+  // google user
+  createGoogleUser,
+  getGoogleUser,
 };

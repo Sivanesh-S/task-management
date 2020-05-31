@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const mongo = require('../../mongo');
-const { createUser, getUser } = mongo;
+const { createUser, getUserByMail } = mongo;
 
 router.post('/signup', async (req, res) => {
   const { email, password, fullName, photoUrl } = req.body;
@@ -66,7 +66,7 @@ router.post('/login', async (req, res) => {
     else return 401
   */
 
-  const userObj = await getUser(email);
+  const userObj = await getUserByMail(email);
   if (!userObj) {
     return res.status(400).send('Username or password is incorrect');
   }
