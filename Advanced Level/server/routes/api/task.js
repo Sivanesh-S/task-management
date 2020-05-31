@@ -105,8 +105,8 @@ router.put('/archived/:taskId', async (req, res) => {
 
 router.delete('/archived', async (req, res) => {
   const userId = req.authUserId;
-  await deleteArchived(userId);
-  res.sendStatus(204);
+  const deletedCount = await deleteArchived(userId);
+  res.status(204).send({ count: deletedCount });
 });
 
 module.exports = router;
