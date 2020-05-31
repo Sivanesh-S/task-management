@@ -58,8 +58,8 @@ router.put(`/tasks/:taskId`, async (req, res) => {
 router.delete(`/tasks/:taskId`, async (req, res) => {
   const userId = req.authUserId;
   const { taskId } = req.params;
-  await deleteTask(userId, taskId);
-  res.sendStatus(204);
+  const [status, response] = await deleteTask(userId, taskId);
+  res.status(status).send(response);
 });
 
 // archived
@@ -68,8 +68,8 @@ router.post(`/archived/:taskId`, async (req, res) => {
   const userId = req.authUserId;
   const { taskId } = req.params;
   try {
-    await completeTask(userId, taskId);
-    res.sendStatus(204);
+    const [status, response] = await completeTask(userId, taskId);
+    res.status(status).send(response);
   } catch (err) {
     res.status(400).send(err.message);
   }
