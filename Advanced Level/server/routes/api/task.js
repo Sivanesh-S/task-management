@@ -96,8 +96,8 @@ router.put('/archived/:taskId', async (req, res) => {
     const userId = req.authUserId;
     const { taskId } = req.params;
     isValidId(taskId);
-    await restoreArchived(userId, taskId);
-    res.sendStatus(204);
+    const [status, response] = await restoreArchived(userId, taskId);
+    res.status(status).send(response);
   } catch (err) {
     res.status(400).send(err.message);
   }
