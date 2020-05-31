@@ -47,7 +47,10 @@ const getTasksCount = async (userId) => {
 };
 
 const createTask = async (userId, body) => {
+  const objectId = new ObjectID();
   body.userId = userId;
+  body.taskId = body._id = objectId;
+
   const response = await activeCollection.insert(body);
   return response.ops[0];
 };
