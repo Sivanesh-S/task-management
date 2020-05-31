@@ -76,22 +76,26 @@ const updateTask = async (userId, taskId, body) => {
 };
 
 const deleteTask = async (userId, taskId) => {
-  const response = await activeCollection.findOneAndDelete({
-    _id: ObjectID(taskId),
-    userId,
-  });
-
-  if (response.value) {
-    console.log('Deleted from active');
-    return [204];
-  } else {
-    return [400, 'No items to delete in this id'];
+  try {
+    const response = await activeCollection.findOneAndDelete({
+      _id: ObjectID(taskId),
+      userId,
+    });
+    if (response.value) {
+      console.log('Deleted from active');
+      return [204, response];
+    } else {
+      return [400, 'No items to delete in this id'];
+    }
+  } catch (err) {
+    console.log('[Mongo] err.message:', err.message);
+    return [400, `There's issue in sent task id`];
   }
 };
 
 const completeTask = async (userId, taskId) => {
   // remove from active
-  const response = await deleteTask(userId, taskId);
+  const [, response] = await deleteTask(userId, taskId);
 
   if (response.value) {
     // add in archive
@@ -111,14 +115,44 @@ const getArchived = async (userId) => {
   return response;
 };
 
-const restoreArchived = async (userId, id) => {
-  const response = '';
-  return response;
+const restoreArchived = async (userId, taskId) => {
+  // remove from archived
+
+  try {
+    let newa = ObjectID(taskId);
+    console.log('taskId:', newa);
+  } catch (err) {
+    console.log('err hey:', err);
+  }
+  const [, response] = await deleteOneArchived(userId, taskId);
+
+  if (response.value) {
+    // add in active
+    await activeCollection.insertOne(response.value);
+    console.log('Added to archive');
+    return [204];
+  } else {
+    return [400, 'No tasks with this id'];
+  }
+};
+
+const deleteOneArchived = async (userId, taskId) => {
+  const response = await archivedCollection.findOneAndDelete({
+    _id: ObjectID(taskId),
+    userId,
+  });
+
+  if (response.value) {
+    console.log('Deleted from archived');
+    return [204, response];
+  } else {
+    return [400, 'No items to delete in this id'];
+  }
 };
 
 const deleteArchived = async (userId) => {
-  const response = '';
-  return true; // false
+  const response = await archivedCollection.deleteMany({ userId });
+  return response.deletedCount; // false
 };
 
 // -- users --
