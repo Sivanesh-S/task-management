@@ -7,6 +7,7 @@ const basicAuth = (token) => {
     return userObj.userId;
   } catch (err) {
     console.error(`[basic Auth] ${err.message}`);
+    return null;
   }
 };
 

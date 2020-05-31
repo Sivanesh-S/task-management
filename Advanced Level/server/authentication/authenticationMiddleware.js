@@ -31,6 +31,9 @@ const authenticationMiddleware = async (req, res, next) => {
     } else {
       const basicAuthToken = authToken.split('bearer ')[1];
       userId = await basicAuth(basicAuthToken);
+      if (!userId) {
+        res.sendStatus(401);
+      }
     }
     req.authUserId = userId;
     console.log('came to middleware', userId);
