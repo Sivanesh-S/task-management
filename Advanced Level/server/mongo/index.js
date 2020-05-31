@@ -31,6 +31,7 @@ client.connect((err) => {
 
 client.connect((err) => {
   userCollection = client.db('task-management-v1').collection('user');
+  userCollection.createIndex({ email: 1 }, { unique: true });
   // perform actions on the collection object
   // client.close();
 });
@@ -93,6 +94,22 @@ const deleteArchived = async () => {
 };
 
 // -- users --
+
+const createUser = async (userObj) => {
+  const userId = new ObjectID();
+  userObj._id = userObj.userId = userId;
+  console.log('[Mongo] User signedup:', userObj.email);
+
+  try {
+    const response = await userCollection.insertOne(userObj);
+    // console.log('response:', response);
+    return [200];
+  } catch (err) {
+    console.error('/auth/signup error', err.message);
+    return [401, err];
+  }
+};
+
 const getUser = async () => {
   const response = await userCollection.find().toArray();
   return response;
@@ -147,6 +164,7 @@ module.exports = {
   deleteArchived,
 
   // user
+  createUser,
   getUser,
   updateUser,
   deleteUser,

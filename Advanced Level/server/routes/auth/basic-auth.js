@@ -8,41 +8,59 @@ const { ObjectID } = require('mongodb');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-router.post('/signup', (req, res) => {
-  console.log('req.body:', req.body);
-  const { email, password } = req.body;
+const mongo = require('../../mongo');
+const { createUser } = mongo;
+
+router.post('/signup', async (req, res) => {
+  const { email, password, fullName, photoUrl } = req.body;
+
+  if (!(email && password && fullName)) {
+    return res
+      .status(400)
+      .send({ message: 'Email, password, fullname are mandatory' });
+  }
 
   // encrypt password
-  bcrypt.hash(password, 10, (err, encryptedPassword) => {
-    console.log('encryptedPassword:', encryptedPassword);
+  const encryptedPassword = await bcrypt.hash(password, 10);
 
-    // dummy check
-    // bcrypt
-    //   .compare(password, encryptedPassword)
-    //   .then((res) => console.log('isPasswordSame:', res));
-
-    // Save in db
-  });
-
-  // create token
-  console.log(
-    'email, process.env.JWT_PRIVATE_KEY:',
-    email,
-    process.env.JWT_PRIVATE_KEY
-  );
   const userId = new ObjectID();
   const token = jwt.sign({ userId }, process.env.JWT_PRIVATE_KEY);
-  console.log('token:', token);
+  console.log('[Signup] token generated');
+
+  try {
+    const [status] = await createUser({
+      email,
+      password: encryptedPassword,
+      fullName,
+      photoUrl,
+    });
+    if (status === 401) {
+      res
+        .status(401)
+        .send({ message: "There's already a account using this email" });
+    } else {
+      res.status(status).send({ token });
+    }
+  } catch (err) {
+    console.log('err.message:', err.message);
+    res.status(400).send(err.message);
+  }
 
   // dummy check
   // const decoded = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
   // console.log('decoded:', decoded);
 
-  res.send({ token });
+  // res.send({ token });
 });
 
 router.post('/login', (req, res) => {
   const { email, password } = req.body;
+
+  /* get userData from mongo user collection 
+    bcrypt current password and compare 
+    if success return userObj (excluding password and token stored)
+    else return 401
+  */
 });
 
 router.post('/logout', (req, res) => {
