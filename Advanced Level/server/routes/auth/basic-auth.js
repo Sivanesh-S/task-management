@@ -33,6 +33,8 @@ router.post('/signup', async (req, res) => {
       password: encryptedPassword,
       fullName,
       photoUrl,
+      userId,
+      _id: userId,
     });
     if (status === 401) {
       res

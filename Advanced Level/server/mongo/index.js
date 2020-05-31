@@ -96,8 +96,6 @@ const deleteArchived = async () => {
 // -- users --
 
 const createUser = async (userObj) => {
-  const userId = new ObjectID();
-  userObj._id = userObj.userId = userId;
   console.log('[Mongo] User signedup:', userObj.email);
 
   try {
