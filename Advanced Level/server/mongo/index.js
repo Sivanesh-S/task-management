@@ -110,9 +110,12 @@ const createUser = async (userObj) => {
   }
 };
 
-const getUser = async () => {
-  const response = await userCollection.find().toArray();
-  return response;
+const getUser = async (email) => {
+  const response = await userCollection.find({ email }).toArray();
+  if (response.length) {
+    return response[0];
+  }
+  return null;
 };
 
 const updateUser = async (userId, body) => {

@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const mongo = require('../../mongo');
-const { createUser } = mongo;
+const { createUser, getUser } = mongo;
 
 router.post('/signup', async (req, res) => {
   const { email, password, fullName, photoUrl } = req.body;
@@ -53,17 +53,36 @@ router.post('/signup', async (req, res) => {
   // res.send({ token });
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
+
+  if (!(email && password)) {
+    return res.status(400).send('Both email and password should be sent');
+  }
 
   /* get userData from mongo user collection 
     bcrypt current password and compare 
     if success return userObj (excluding password and token stored)
     else return 401
   */
+
+  const userObj = await getUser(email);
+  if (!userObj) {
+    return res.status(400).send('Username or password is incorrect');
+  }
+  const { photoUrl, fullName } = userObj;
+
+  // res.status(status).send(response);
+  const isCorrectPassword = await bcrypt.compare(password, userObj.password);
+  if (isCorrectPassword) {
+    console.log(`user ${email} signed in`);
+    res.send({ email, fullName, photoUrl });
+  } else {
+    res.status(401).send('Username or password is incorrect');
+  }
 });
 
-router.post('/logout', (req, res) => {
+router.post('/logout', async (req, res) => {
   const userId = req.authUserId;
 
   //  I don't no what to do in server
