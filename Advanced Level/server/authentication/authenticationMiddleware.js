@@ -17,6 +17,10 @@ const authenticationMiddleware = async (req, res, next) => {
     return next();
   }
 
+  if (!authToken) {
+    return res.status(401).send('Un Authorized');
+  }
+
   try {
     let userId = null;
     if (authToken.includes('Bearer google ')) {
