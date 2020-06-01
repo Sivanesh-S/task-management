@@ -1,0 +1,16 @@
+.header {
+  /* border: 2px solid crimson; */
+}
+
+.logo {
+  transform: translateY(5px);
+  color: crimson;
+}
+
+.brandTitle {
+  padding-left: 15px;
+}
+
+.options {
+  margin-right: 10px;
+}
