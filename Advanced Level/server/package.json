@@ -30,7 +30,6 @@
     "mongodb": "^3.5.7"
   },
   "devDependencies": {
-    "@storybook/addon-storyshots": "^5.3.19",
     "nodemon": "^2.0.4",
     "react-test-renderer": "^16.13.1"
   }
