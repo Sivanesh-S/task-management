@@ -1,0 +1,16 @@
+.dropdown {
+  background-color: #7041ee;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.menu {
+  text-align: center;
+  background-color: #7041ee;
+}
+
+.menuItem {
+  color: white;
+  padding: 6px;
+}
