@@ -7,6 +7,7 @@ import SignUp from './Components/SignUp.js';
 import Header from './Components/Header/Header';
 import Analytics from './Components/Analytics/Analytics';
 import ViewSelect from './Components/ViewSelect/ViewSelect';
+import TaskItem from './Components/TaskItem/TaskItem';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Header />
       <Analytics />
       <ViewSelect />
+      <TaskItem />
     </div>
   );
 }
