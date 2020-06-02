@@ -1,0 +1,17 @@
+.property {
+  margin-right: 18px;
+  opacity: 0.6;
+}
+
+.icon {
+  transform: translateY(2px);
+  margin-right: 5px;
+}
+
+.text {
+  color: rgb(73, 73, 73);
+}
+
+.size {
+  font-size: 0.7em;
+}

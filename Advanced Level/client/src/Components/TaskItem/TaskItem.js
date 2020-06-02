@@ -8,6 +8,7 @@ import { Card, Checkbox } from 'antd';
 
 // Icons
 import { FaEllipsisV } from 'react-icons/fa';
+import TaskProperties from '../TaskProperties/TaskProperties';
 
 // events
 const onChange = () => {};
@@ -32,6 +33,7 @@ function TaskItem() {
             <FaEllipsisV />
           </a>
         </div>
+        <TaskProperties />
       </Card>
     </div>
   );
