@@ -1,8 +1,8 @@
 .child {
   margin-right: 5px;
   padding: 2px 8px;
-  background-color: rgba(36, 76, 252, 0.5);
-  color: rgba(36, 76, 252);
+  background-color: rgba(36, 76, 252, 0.1);
+  color: rgba(36, 76, 252, 0.7);
   border-radius: 10px;
   font-size: 0.8em;
 }
