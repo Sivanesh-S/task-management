@@ -5,3 +5,7 @@
   font-weight: bolder !important;
   border-color: white !important;
 }
+
+.center {
+  text-align: center;
+}
