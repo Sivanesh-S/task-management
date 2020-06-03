@@ -4,15 +4,18 @@ import PropTypes from 'prop-types';
 // style
 import style from './Label.module.css';
 
+// components
+import { Tag } from 'antd';
+
 function Label({ children, color }) {
   let inlineStyle = {};
   if (color) {
     // inlineStyle.color = color;
   }
   return (
-    <span className={style.child} style={inlineStyle}>
+    <Tag color="cyan" className={style.child}>
       {children}
-    </span>
+    </Tag>
   );
 }
 
