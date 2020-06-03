@@ -7,12 +7,16 @@ import style from './AuthPage.module.css';
 // icons
 import { FaArrowLeft, FaUser } from 'react-icons/fa';
 
+// components
+import { Typography } from 'antd';
+const { Title } = Typography;
+
 function AuthPage(props) {
   return (
     <div className={style.page}>
       <FaArrowLeft className={style.back} />
       <FaUser className={style.avatar} />
-      <div className={style.name}>{'Twelve Tasks'}</div>
+      <Title>Twelve Tasks</Title>
       <div className={style.container}>
         <button
           // onChange={onChange}

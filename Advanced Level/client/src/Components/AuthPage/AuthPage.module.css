@@ -62,3 +62,18 @@
 .signUpLink {
   color: #704ee1;
 }
+
+.input {
+  box-sizing: content-box;
+  margin: 20px auto 0px;
+  width: 80%;
+  padding: 10px 20px;
+  border-radius: 24px;
+  border-color: transparent;
+  box-shadow: 0px 16px 60px rgba(78, 79, 114, 0.1);
+}
+
+.signUpButton {
+  background-color: #704ee1;
+  color: white;
+}
