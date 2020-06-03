@@ -1,1 +1,7 @@
 @import '~antd/dist/antd.css';
+
+.ant-tabs-tab-active {
+  color: white !important;
+  font-weight: bolder !important;
+  border-color: white !important;
+}

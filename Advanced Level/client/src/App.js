@@ -9,6 +9,7 @@ import Analytics from './Components/Analytics/Analytics';
 import ViewSelect from './Components/ViewSelect/ViewSelect';
 import TaskItem from './Components/TaskItem/TaskItem';
 import RightMenu from './Components/RightMenu/RightMenu';
+import BottomTabs from './Components/BottomTabs/BottomTabs';
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
       <Analytics />
       <ViewSelect />
       <TaskItem /> */}
-      <RightMenu />
+      {/* <RightMenu /> */}
+      <BottomTabs />
     </div>
   );
 }
