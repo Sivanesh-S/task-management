@@ -10,18 +10,18 @@ import ViewSelect from './Components/ViewSelect/ViewSelect';
 import TaskItem from './Components/TaskItem/TaskItem';
 import RightMenu from './Components/RightMenu/RightMenu';
 import BottomTabs from './Components/BottomTabs/BottomTabs';
-import TaskPage from './Components/TaskPage/TaskPage';
+import FilterPage from './Components/FilterPage/FilterPage';
 
 function App() {
   return (
     <div className="App">
       {/* <Header />
       <Analytics />
-      <ViewSelect />
-      <TaskItem /> */}
+      <ViewSelect />*/}
+      {/* <TaskItem /> */}
       {/* <RightMenu /> */}
       {/* <BottomTabs /> */}
-      <TaskPage />
+      <FilterPage />
     </div>
   );
 }

@@ -33,3 +33,25 @@
   background-color: #704ee1;
   color: white;
 }
+
+.inputSelect {
+  width: 100%;
+  border-color: transparent;
+}
+
+.totalFilters {
+  background-color: #704ee1;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  padding: 13px;
+  text-align: center;
+  color: white;
+}
+
+.filter {
+  text-align: left;
+  color: rgba(78, 79, 114, 0.5);
+}
