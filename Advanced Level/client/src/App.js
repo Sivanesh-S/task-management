@@ -13,6 +13,7 @@ import BottomTabs from './Components/BottomTabs/BottomTabs';
 import FilterPage from './Components/FilterPage/FilterPage';
 import AuthPage from './Components/AuthPage/AuthPage';
 import LoginEmail from './Components/AuthPage/LoginEmail';
+import SignUpEmail from './Components/AuthPage/SignUpEmail';
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
       {/* <BottomTabs /> */}
       {/* <FilterPage /> */}
       {/* <AuthPage /> */}
-      <LoginEmail />
+      <SignUpEmail />
     </div>
   );
 }
