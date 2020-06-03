@@ -10,6 +10,7 @@ import ViewSelect from './Components/ViewSelect/ViewSelect';
 import TaskItem from './Components/TaskItem/TaskItem';
 import RightMenu from './Components/RightMenu/RightMenu';
 import BottomTabs from './Components/BottomTabs/BottomTabs';
+import TaskPage from './Components/TaskPage/TaskPage';
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
       <ViewSelect />
       <TaskItem /> */}
       {/* <RightMenu /> */}
-      <BottomTabs />
+      {/* <BottomTabs /> */}
+      <TaskPage />
     </div>
   );
 }
