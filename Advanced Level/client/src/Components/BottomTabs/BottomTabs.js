@@ -20,7 +20,7 @@ function BottomTabs() {
         onChange={callback}
         tabPosition="bottom"
         style={{ color: 'white', zIndex: 10 }}
-        tabBarStyle={{ color: 'white', background: '#7014ee' }}
+        tabBarStyle={{ color: 'white', background: '#7041ee' }}
       >
         <TabPane tab="Tab 1" key="1">
           {/* Content of Tab Pane 1 */}
