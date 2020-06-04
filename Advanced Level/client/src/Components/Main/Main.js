@@ -20,6 +20,11 @@ import style from './Main.module.css';
 function Main() {
   const history = useHistory();
 
+  const authKey = localStorage.getItem('authKey');
+  if (!authKey) {
+    history.push('/landing');
+  }
+
   // routing
   const openAdd = () => history.push('/task');
   return (
