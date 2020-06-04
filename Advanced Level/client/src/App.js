@@ -1,32 +1,30 @@
-import React, { useEffect } from 'react';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-// Components
-import Login from './Components/Login';
-import SignUp from './Components/SignUp.js';
-import Header from './Components/Header/Header';
-import Analytics from './Components/Analytics/Analytics';
-import ViewSelect from './Components/ViewSelect/ViewSelect';
-import TaskItem from './Components/TaskItem/TaskItem';
-import RightMenu from './Components/RightMenu/RightMenu';
-import BottomTabs from './Components/BottomTabs/BottomTabs';
-import FilterPage from './Components/FilterPage/FilterPage';
+// Common css and antd css imported
+import './App.css';
 import AuthPage from './Components/AuthPage/AuthPage';
 import LoginEmail from './Components/AuthPage/LoginEmail';
 import SignUpEmail from './Components/AuthPage/SignUpEmail';
+import TaskPage from './Components/TaskPage/TaskPage';
+import FilterPage from './Components/FilterPage/FilterPage';
+import Main from './Components/Main/Main';
+import RightMenu from './Components/RightMenu/RightMenu';
 
 function App() {
   return (
-    <div className="App">
-      {/* <Header />
-      <Analytics />
-      <ViewSelect />*/}
-      {/* <TaskItem /> */}
-      {/* <RightMenu /> */}
-      {/* <BottomTabs /> */}
-      {/* <FilterPage /> */}
-      {/* <AuthPage /> */}
-      <SignUpEmail />
+    <div>
+      <Router>
+        <Switch>
+          <Route path="/landing" component={AuthPage}></Route>
+          <Route path="/signIn" component={LoginEmail}></Route>
+          <Route path="/signUp" component={SignUpEmail}></Route>
+          <Route path="/task" component={TaskPage}></Route>
+          <Route path="/filter" component={FilterPage}></Route>
+          <Route path="/userInfo" component={RightMenu}></Route>
+          <Route path="/" component={Main}></Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

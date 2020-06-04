@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+// routing
+import { useHistory } from 'react-router-dom';
+
 // styles
 import style from '../TaskPage/TaskPage.module.css';
 
@@ -14,9 +17,13 @@ import FilterItem from '../FilterItem/FilterItem';
 const { Title } = Typography;
 
 function FilterPage() {
+  const history = useHistory();
+
+  // routing
+  const backToMain = () => history.push('/');
   return (
     <div className={style.page}>
-      <FaArrowLeft className={style.back} />
+      <FaArrowLeft className={style.back} onClick={backToMain} />
       <div className={style.container}>
         <Title className={style.heading + ' center'}>Filter</Title>
         <FilterItem name={'Due date'} />

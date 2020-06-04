@@ -1,0 +1,12 @@
+.addButton {
+  background-color: #7041ee;
+  color: white;
+  font-size: 1.5em;
+  box-sizing: content-box;
+  padding: 15px;
+  border-radius: 50%;
+
+  position: fixed;
+  bottom: 50px;
+  right: 40px;
+}

@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// routing
+import { useHistory } from 'react-router-dom';
+
 // styles
 import style from './TaskPage.module.css';
 
@@ -13,11 +16,16 @@ import { Input, Button, Typography } from 'antd';
 const { Title } = Typography;
 
 function TaskPage() {
+  const history = useHistory();
+
+  // routing
+  const backToMain = () => history.push('/');
+
   // events
   const onChange = () => {};
   return (
     <div className={style.page}>
-      <FaArrowLeft className={style.back} />
+      <FaArrowLeft className={style.back} onClick={backToMain} />
       <div className={style.container}>
         <Title className={style.heading + ' center'}>Add Task</Title>
         <Input
