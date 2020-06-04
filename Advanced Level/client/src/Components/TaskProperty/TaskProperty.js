@@ -7,7 +7,6 @@ import style from './TaskProperty.module.css';
 function TaskProperty(props) {
   const { icon, text, iconColor, textColor, color } = props;
   let propertyColor = color ? color : textColor;
-  console.log('icon:', icon);
 
   return (
     <span className={style.property}>
