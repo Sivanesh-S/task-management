@@ -17,7 +17,7 @@ const onChange = () => {};
 function TaskItem() {
   return (
     <div>
-      <Card className={style.task} hoverable>
+      <Card className={style.task} hoverable size="small">
         <div className={style.container}>
           <Checkbox onChange={onChange}>
             aa asdasdwdknew fhgwbd bw dwh4e d 4ewdh we asdasd asda da sd
@@ -27,7 +27,7 @@ function TaskItem() {
           </a>
         </div>
       </Card>
-      <Card className={style.task} hoverable>
+      <Card className={style.task} hoverable size="small">
         <div className={style.container}>
           <Checkbox onChange={onChange}>aa asdasdq asd</Checkbox>
           <a href="#" className={style.option}>
