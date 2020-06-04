@@ -41,7 +41,7 @@ router.post('/signup', async (req, res) => {
         .status(401)
         .send({ message: "There's already a account using this email" });
     } else {
-      res.status(status).send({ token });
+      res.status(status).send({ token, fullName });
     }
   } catch (err) {
     console.log('err.message:', err.message);
@@ -72,13 +72,15 @@ router.post('/login', async (req, res) => {
   if (!userObj) {
     return res.status(400).send('Username or password is incorrect');
   }
-  const { photoUrl, fullName } = userObj;
+  const { photoUrl, fullName, userId } = userObj;
+
+  const token = jwt.sign({ userId }, process.env.JWT_PRIVATE_KEY);
 
   // res.status(status).send(response);
   const isCorrectPassword = await bcrypt.compare(password, userObj.password);
   if (isCorrectPassword) {
     console.log(`user ${email} signed in`);
-    res.send({ email, fullName, photoUrl });
+    res.send({ email, fullName, photoUrl, token });
   } else {
     res.status(401).send('Username or password is incorrect');
   }
