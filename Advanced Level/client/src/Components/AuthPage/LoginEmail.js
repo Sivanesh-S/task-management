@@ -13,9 +13,11 @@ import style from './AuthPage.module.css';
 // icons
 import { FaArrowLeft, FaUser, FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 
-// components
-import { Typography, Input } from 'antd';
+// utils
 import { validateEmail, isInvalidPassword } from '../../utils';
+
+// components
+import { Typography, Input, message } from 'antd';
 const { Title } = Typography;
 
 function LoginEmail(props) {
@@ -54,14 +56,16 @@ function LoginEmail(props) {
 
       const { status } = response;
 
-      if (status === 400) {
+      if (status === 400 || status === 401) {
         const message = await response.text();
         setMsg(message);
         console.log('message:', message);
       } else {
-        const { token } = await response.json();
+        const { token, fullName } = await response.json();
 
         localStorage.setItem('authKey', token);
+        history.push('/');
+        message.success(`Welcome To Twelve Tasks ${fullName}`);
       }
     }
   };
