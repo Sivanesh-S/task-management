@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
+// hooks
+import { useInput, usePrevious } from '../../hooks';
 
 // routing
 import { useHistory } from 'react-router-dom';
@@ -8,24 +11,79 @@ import { useHistory } from 'react-router-dom';
 import style from './AuthPage.module.css';
 
 // icons
-import {
-  FaArrowLeft,
-  FaUser,
-  FaEye,
-  FaEyeSlash,
-  FaRegEye,
-  FaRegEyeSlash,
-} from 'react-icons/fa';
+import { FaArrowLeft, FaUser, FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 
 // components
 import { Typography, Input } from 'antd';
+import { validateEmail, isInvalidPassword } from '../../utils';
 const { Title } = Typography;
 
 function LoginEmail(props) {
-  const history = useHistory();
+  // inputs
+  const [email, setEmail] = useInput('');
+  const [password, setPassword] = useInput('');
+
+  // state
+  const [msg, setMsg] = useState('');
+  const prevMsg = usePrevious(msg);
 
   // routing
+  const history = useHistory();
+
   const goBack = () => history.goBack();
+
+  useEffect(() => {
+    if (msg && prevMsg === msg) {
+      setMsg('');
+    }
+  }, [email, password]);
+
+  // events
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    if (isEmailValid() && isPasswordValid()) {
+      const response = await fetch('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const { status } = response;
+
+      if (status === 400) {
+        const message = await response.text();
+        setMsg(message);
+        console.log('message:', message);
+      } else {
+        const { token } = await response.json();
+
+        localStorage.setItem('authKey', token);
+      }
+    }
+  };
+
+  const isEmailValid = () => {
+    if (!validateEmail(email)) {
+      setMsg('Enter a valid Email');
+      return false;
+    }
+    return true;
+  };
+
+  const isPasswordValid = () => {
+    let errorString = null;
+    errorString = isInvalidPassword(password);
+    if (errorString) {
+      setMsg(errorString);
+      return false;
+    }
+    return true;
+  };
+
   return (
     <div className={style.page}>
       <FaArrowLeft className={style.back} onClick={goBack} />
@@ -33,15 +91,30 @@ function LoginEmail(props) {
       <Title>Twelve Tasks</Title>
       <Title level={3}>Login</Title>
       <div className={style.container}>
-        <Input placeholder="Email" type="email" className={style.input}></Input>
-        <Input.Password
-          className={style.input}
-          placeholder="Password"
-          iconRender={(visible) => (visible ? <FaRegEye /> : <FaRegEyeSlash />)}
-        />
-        <button className={`${style.input} ${style.signUpButton}`} block>
-          Sign In
-        </button>
+        <form onSubmit={onSubmit} method="POST">
+          <Input
+            placeholder="Email"
+            type="text"
+            className={style.input}
+            onChange={setEmail}
+            onBlur={isEmailValid}
+          ></Input>
+          <Input.Password
+            onChange={setPassword}
+            className={style.input}
+            placeholder="Password"
+            iconRender={(visible) =>
+              visible ? <FaRegEye /> : <FaRegEyeSlash />
+            }
+            onBlur={isPasswordValid}
+          />
+          {msg && <div style={{ color: 'crimson' }}>{msg}</div>}
+          <input
+            type="submit"
+            className={`${style.input} ${style.signUpButton}`}
+            value={'Sign In'}
+          ></input>
+        </form>
         <div className={style.signUp}>
           Want to Join? <span className={style.signUpLink}>Sign Up</span>
         </div>
