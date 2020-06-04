@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// routing
+import { useHistory } from 'react-router-dom';
+
 // styles
 import style from './AuthPage.module.css';
 
@@ -19,9 +22,13 @@ import { Typography, Input } from 'antd';
 const { Title } = Typography;
 
 function LoginEmail(props) {
+  const history = useHistory();
+
+  // routing
+  const goBack = () => history.goBack();
   return (
     <div className={style.page}>
-      <FaArrowLeft className={style.back} />
+      <FaArrowLeft className={style.back} onClick={goBack} />
       <FaUser className={style.avatar} />
       <Title>Twelve Tasks</Title>
       <Title level={3}>Login</Title>
