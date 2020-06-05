@@ -18,6 +18,10 @@ const { Title } = Typography;
 function AuthPage(props) {
   const history = useHistory();
 
+  if (localStorage.getItem('provider') && localStorage.getItem('authToken')) {
+    history.push('/');
+  }
+
   // routing
   const goMailLogin = () => history.push('./signin');
   const goMailSignup = () => history.push('./signup');
@@ -34,6 +38,7 @@ function AuthPage(props) {
 
     message.success(`${profileObj.name} Welcome to Twelve notes`);
     localStorage.setItem('authToken', tokenId);
+    localStorage.setItem('provider', 'GOOGLE_AUTH');
     history.push('/', profileObj);
   };
 
