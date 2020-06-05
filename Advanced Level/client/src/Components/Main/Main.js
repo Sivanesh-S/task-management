@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // routing
 import { useHistory } from 'react-router-dom';
+
+import api from '../../utils/api';
 
 // components
 import Header from '../Header/Header';
@@ -9,13 +11,13 @@ import Analytics from '../Analytics/Analytics';
 import ViewSelect from '../ViewSelect/ViewSelect';
 import BottomTabs from '../BottomTabs/BottomTabs';
 import TaskList from '../TaskList/TaskList';
-import { Button } from 'antd';
 
 // icon
 import { FaPlus } from 'react-icons/fa';
 
 // style
 import style from './Main.module.css';
+import { apiPrefix } from '../../constants';
 
 function Main() {
   const history = useHistory();
@@ -24,6 +26,13 @@ function Main() {
   if (!authToken) {
     history.push('/landing');
   }
+
+  useEffect(() => {
+    (async () => {
+      const userResponse = await api.get(`${apiPrefix}user`);
+      console.log('userResponse:', userResponse);
+    })();
+  }, []);
 
   // routing
   const openAdd = () => history.push('/task');
