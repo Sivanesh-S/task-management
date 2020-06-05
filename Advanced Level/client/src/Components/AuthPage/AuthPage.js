@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useGoogleLogin } from 'react-google-login';
 
 // routing
 import { useHistory } from 'react-router-dom';
@@ -11,7 +12,7 @@ import style from './AuthPage.module.css';
 import { FaArrowLeft, FaUser } from 'react-icons/fa';
 
 // components
-import { Typography } from 'antd';
+import { Typography, message } from 'antd';
 const { Title } = Typography;
 
 function AuthPage(props) {
@@ -20,6 +21,27 @@ function AuthPage(props) {
   // routing
   const goMailLogin = () => history.push('./signin');
   const goMailSignup = () => history.push('./signup');
+
+  const [userId, setUserId] = useState('');
+  // google oauth
+  const clientId =
+    '416982686383-bqno596si9butn9mato3a286tvgugi2d.apps.googleusercontent.com';
+
+  const onSuccess = async (res) => {
+    const { tokenId, googleId, profileObj } = res;
+    setUserId(googleId);
+    console.log('Logged in res:');
+
+    message.success(`${profileObj.name} Welcome to Twelve notes`);
+    localStorage.setItem('authToken', tokenId);
+    history.push('/', profileObj);
+  };
+
+  const { signIn, loaded } = useGoogleLogin({
+    onSuccess,
+    clientId,
+    isSignedIn: true,
+  });
 
   return (
     <div className={style.page}>
@@ -35,10 +57,7 @@ function AuthPage(props) {
 
           <span className={style.buttonText}>Sign in with Email</span>
         </button>
-        <button
-          // onChange={onChange}
-          className={style.button}
-        >
+        <button onClick={signIn} className={style.button}>
           <img src="/icons/google.svg" className={style.icon}></img>
 
           <span className={style.buttonText}>Sign in with Google</span>

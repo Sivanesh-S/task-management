@@ -20,8 +20,8 @@ import style from './Main.module.css';
 function Main() {
   const history = useHistory();
 
-  const authKey = localStorage.getItem('authKey');
-  if (!authKey) {
+  const authToken = localStorage.getItem('authToken');
+  if (!authToken) {
     history.push('/landing');
   }
 
