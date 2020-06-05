@@ -161,10 +161,13 @@ const createUser = async (userObj) => {
   }
 };
 
-const getUserByMail = async (email) => {
-  const response = await userCollection.find({ email }).toArray();
-  if (response.length) {
-    return response[0];
+const getUser = async (userId) => {
+  let response = (
+    await userCollection.find({ userId: ObjectID(userId) }).toArray()
+  )[0];
+  if (response) {
+    delete response.password;
+    return response;
   }
   return null;
 };
@@ -236,7 +239,7 @@ module.exports = {
 
   // user
   createUser,
-  getUserByMail,
+  getUser,
   updateUser,
   deleteUser,
 

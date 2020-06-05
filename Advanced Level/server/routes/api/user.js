@@ -6,7 +6,8 @@ const mongo = require('../../mongo');
 const { getUser, updateUser, deleteUser } = mongo;
 
 router.get('/user', async (req, res) => {
-  const response = await getUser();
+  const userId = req.authUserId;
+  const response = await getUser(userId);
   res.send(response);
 });
 
