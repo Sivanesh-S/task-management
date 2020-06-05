@@ -63,7 +63,7 @@ function LoginEmail(props) {
       } else {
         const { token, fullName } = await response.json();
 
-        localStorage.setItem('authKey', token);
+        localStorage.setItem('authToken', token);
         history.push('/');
         message.success(`Welcome To Twelve Tasks ${fullName}`);
       }

@@ -60,7 +60,7 @@ function SignUpEmail(props) {
       const { token } = response.data;
 
       if (token) {
-        localStorage.setItem('authKey', token);
+        localStorage.setItem('authToken', token);
         history.push('/');
         message.success(`Welcome To Twelve Tasks ${fullName}`);
       } else {
