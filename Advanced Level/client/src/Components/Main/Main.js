@@ -23,16 +23,21 @@ function Main() {
   const history = useHistory();
 
   const authToken = localStorage.getItem('authToken');
-  if (!authToken) {
-    history.push('/landing');
-  }
 
   useEffect(() => {
     (async () => {
-      const userResponse = await api.get(`${apiPrefix}user`);
+      if (!authToken) {
+        return;
+      }
+      const userResponse = await api().get(`${apiPrefix}user`);
       console.log('userResponse:', userResponse);
     })();
   }, []);
+
+  if (!authToken) {
+    history.push('/landing');
+    return null;
+  }
 
   // routing
   const openAdd = () => history.push('/task');
