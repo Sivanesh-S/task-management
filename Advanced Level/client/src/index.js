@@ -6,10 +6,15 @@ import * as serviceWorker from './serviceWorker';
 
 import { StateProvider, store } from './context/Store';
 
+import Login from './Components/Login';
+import SignUp from './Components/SignUp';
+
 ReactDOM.render(
   <React.StrictMode>
     <StateProvider>
       <App />
+      {/* <Login />
+      <SignUp /> */}
     </StateProvider>
   </React.StrictMode>,
   document.getElementById('root')
