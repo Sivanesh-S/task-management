@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 // routing
 import { useHistory } from 'react-router-dom';
@@ -19,8 +19,13 @@ import { FaPlus } from 'react-icons/fa';
 import style from './Main.module.css';
 import { apiPrefix } from '../../constants';
 
+// state
+import { store } from '../../context/Store';
+
 function Main() {
   const history = useHistory();
+  const { state } = useContext(store);
+  console.log('state, state:', state);
 
   const authToken = localStorage.getItem('authToken');
 

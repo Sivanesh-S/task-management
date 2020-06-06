@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { StateProvider, store } from './context/Store';
+import { StateProvider } from './context/Store';
 
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
