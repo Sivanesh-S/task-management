@@ -8,6 +8,7 @@ const googleAuth = async (token) => {
     audience: process.env.GOOGLE_CLIENT_ID,
   });
   const payload = ticket.getPayload();
+  // console.log('payload:', payload);
 
   console.log(`User ${payload.name} verified`);
 
