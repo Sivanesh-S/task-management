@@ -51,20 +51,29 @@ function SignUpEmail(props) {
       isFullNameValid() &&
       isPasswordConfirmed()
     ) {
-      const response = await axios.post('/auth/signup', {
-        fullName,
-        email,
-        password,
-      });
-      console.log('response:', response);
-      const { token } = response.data;
+      try {
+        const response = await axios.post('/auth/signup', {
+          fullName,
+          email,
+          password,
+        });
+        console.log('response:', response);
+        const { token } = response.data;
 
-      if (token) {
-        localStorage.setItem('authToken', token);
-        history.push('/');
-        message.success(`Welcome To Twelve Tasks ${fullName}`);
-      } else {
-        setMsg("There's some issue in signup");
+        if (token) {
+          localStorage.setItem('authToken', token);
+          localStorage.setItem('provider', 'basic');
+          history.push('/');
+          message.success(`Welcome To Twelve Tasks ${fullName}`);
+        } else {
+          setMsg("There's some issue in signup");
+        }
+      } catch (err) {
+        if (err.response.status === 401) {
+          setMsg(err.response.data.message);
+        } else {
+          setMsg(err.message);
+        }
       }
     }
   };
