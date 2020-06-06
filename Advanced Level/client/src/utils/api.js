@@ -9,6 +9,10 @@ const getAPI = () => {
   const provider = localStorage.getItem('provider');
   const authToken = localStorage.getItem('authToken');
 
+  if (!(provider && authToken)) {
+    return axios;
+  }
+
   let authHeader = null;
   if (provider === 'GOOGLE_AUTH') {
     authHeader = `Bearer google ${authToken}`;
@@ -25,4 +29,4 @@ const getAPI = () => {
   return api;
 };
 
-export default getAPI();
+export default getAPI;
