@@ -13,6 +13,7 @@ import { FaArrowLeft, FaUser } from 'react-icons/fa';
 
 // components
 import { Typography, message } from 'antd';
+import api from '../../utils/api';
 const { Title } = Typography;
 
 function AuthPage(props) {
@@ -39,6 +40,7 @@ function AuthPage(props) {
     message.success(`${profileObj.name} Welcome to Twelve notes`);
     localStorage.setItem('authToken', tokenId);
     localStorage.setItem('provider', 'GOOGLE_AUTH');
+    await api().post('/google/login');
     history.push('/', profileObj);
   };
 
