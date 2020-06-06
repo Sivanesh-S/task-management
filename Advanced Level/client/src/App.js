@@ -13,14 +13,15 @@ import RightMenu from './Components/RightMenu/RightMenu';
 
 // oauth
 import { useGoogleLogin } from 'react-google-login';
+import { handleGoogleLogin } from './utils/googleLoginHandler';
 
 // google oauth
 const clientId =
   '416982686383-bqno596si9butn9mato3a286tvgugi2d.apps.googleusercontent.com';
 
 function App() {
-  const onSuccess = (params) => {
-    console.log('params:', params);
+  const onSuccess = (res) => {
+    handleGoogleLogin(res, 'App');
   };
   const { signIn, loaded } = useGoogleLogin({
     onSuccess,

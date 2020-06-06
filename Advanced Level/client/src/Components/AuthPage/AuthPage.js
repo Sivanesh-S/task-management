@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useGoogleLogin } from 'react-google-login';
 
 // routing
@@ -13,6 +13,7 @@ import { FaUser } from 'react-icons/fa';
 // components
 import { Typography, message } from 'antd';
 import api from '../../utils/api';
+import { handleGoogleLogin } from '../../utils/googleLoginHandler';
 const { Title } = Typography;
 
 function AuthPage(props) {
@@ -26,20 +27,14 @@ function AuthPage(props) {
   const goMailLogin = () => history.push('./signin');
   const goMailSignup = () => history.push('./signup');
 
-  const [, setUserId] = useState('');
   // google oauth
   const clientId =
     '416982686383-bqno596si9butn9mato3a286tvgugi2d.apps.googleusercontent.com';
 
   const onSuccess = async (res) => {
-    const { tokenId, googleId, profileObj } = res;
-    setUserId(googleId);
-    console.log('Logged in res:');
-
+    const { profileObj } = res;
+    await handleGoogleLogin(res, 'Auth');
     message.success(`${profileObj.name} Welcome to Twelve notes`);
-    localStorage.setItem('authToken', tokenId);
-    localStorage.setItem('provider', 'GOOGLE_AUTH');
-    await api().post('/google/login');
     history.push('/', profileObj);
   };
 
