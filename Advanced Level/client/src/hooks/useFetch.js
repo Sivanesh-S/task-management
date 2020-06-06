@@ -16,7 +16,7 @@ export const useFetch = (url, method, body) => {
 
     try {
       const response = await api()(apiObj);
-      setData(response);
+      setData(response.data);
       setError(null);
       setLoading(false);
       return response.data;
