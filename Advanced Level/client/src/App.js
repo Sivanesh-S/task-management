@@ -11,7 +11,24 @@ import FilterPage from './Components/FilterPage/FilterPage';
 import Main from './Components/Main/Main';
 import RightMenu from './Components/RightMenu/RightMenu';
 
+// oauth
+import { useGoogleLogin } from 'react-google-login';
+
+// google oauth
+const clientId =
+  '416982686383-bqno596si9butn9mato3a286tvgugi2d.apps.googleusercontent.com';
+
 function App() {
+  const onSuccess = (params) => {
+    console.log('params:', params);
+  };
+  const { signIn, loaded } = useGoogleLogin({
+    onSuccess,
+    clientId,
+    isSignedIn: true,
+    accessType: 'offline',
+  });
+  console.log('loaded:', loaded);
   return (
     <div>
       <Router>
