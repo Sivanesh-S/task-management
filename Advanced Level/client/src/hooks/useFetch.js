@@ -19,6 +19,7 @@ export const useFetch = (url, method, body) => {
       setData(response);
       setError(null);
       setLoading(false);
+      return response.data;
     } catch (err) {
       setError(`[useFetch] Some error in API Fetching: ${err.message}`);
       setData(null);
