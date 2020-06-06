@@ -14,7 +14,8 @@ import RightMenu from './Components/RightMenu/RightMenu';
 // oauth
 import { useGoogleLogin } from 'react-google-login';
 import { handleGoogleLogin } from './utils/googleLoginHandler';
-
+import { Spin } from 'antd';
+console.time('google');
 // google oauth
 const clientId =
   '416982686383-bqno596si9butn9mato3a286tvgugi2d.apps.googleusercontent.com';
@@ -30,6 +31,21 @@ function App() {
     accessType: 'offline',
   });
   console.log('loaded:', loaded);
+
+  if (!loaded) {
+    return (
+      <div className="loader">
+        <div className="loaderDiv">
+          <div>
+            <Spin size="large" />
+          </div>
+          <div>Authenticating with Google Server</div>
+        </div>
+      </div>
+    );
+  }
+  console.timeEnd('google');
+
   return (
     <div>
       <Router>
