@@ -8,7 +8,6 @@ import style from './Label.module.css';
 import { Tag } from 'antd';
 
 function Label({ children, color }) {
-  let inlineStyle = {};
   if (color) {
     // inlineStyle.color = color;
   }

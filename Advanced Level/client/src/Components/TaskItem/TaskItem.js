@@ -22,7 +22,7 @@ function TaskItem() {
           <Checkbox onChange={onChange}>
             aa asdasdwdknew fhgwbd bw dwh4e d 4ewdh we asdasd asda da sd
           </Checkbox>
-          <a href="#" className={style.option}>
+          <a className={style.option}>
             <FaEllipsisV />
           </a>
         </div>
@@ -30,7 +30,7 @@ function TaskItem() {
       <Card className={style.task} hoverable size="small">
         <div className={style.container}>
           <Checkbox onChange={onChange}>aa asdasdq asd</Checkbox>
-          <a href="#" className={style.option}>
+          <a className={style.option}>
             <FaEllipsisV />
           </a>
         </div>

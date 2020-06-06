@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 
 // hooks
 import { useInput, usePrevious } from '../../hooks';
@@ -38,7 +37,7 @@ function LoginEmail(props) {
     if (msg && prevMsg === msg) {
       setMsg('');
     }
-  }, [email, password]);
+  }, [email, password, msg, prevMsg]);
 
   // events
   const onSubmit = async (e) => {

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import { useGoogleLogin, useGoogleLogout } from 'react-google-login';
 
 function Login() {
@@ -20,7 +19,7 @@ function Login() {
     });
   };
 
-  const { signIn, loaded } = useGoogleLogin({
+  const { signIn } = useGoogleLogin({
     onSuccess,
     clientId,
     isSignedIn: true,

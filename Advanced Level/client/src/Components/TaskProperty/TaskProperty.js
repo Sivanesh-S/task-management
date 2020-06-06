@@ -24,7 +24,7 @@ function TaskProperty(props) {
 }
 
 TaskProperty.propTypes = {
-  icon: PropTypes.node.isRequired,
+  icon: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
   iconColor: PropTypes.string,
   textColor: PropTypes.string,

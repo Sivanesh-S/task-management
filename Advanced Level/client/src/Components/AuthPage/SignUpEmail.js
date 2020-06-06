@@ -39,7 +39,7 @@ function SignUpEmail(props) {
     if (msg && prevMsg === msg) {
       setMsg('');
     }
-  }, [email, password]);
+  }, [email, password, msg, prevMsg]);
 
   // events
   const onSubmit = async (event) => {

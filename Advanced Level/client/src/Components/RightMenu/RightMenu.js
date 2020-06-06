@@ -34,7 +34,11 @@ function RightMenu(props) {
   return (
     <div className={style.page}>
       <FaArrowLeft className={style.back} onClick={backToMain} />
-      {img ? <img src={img} /> : <FaUser className={style.avatar} />}
+      {img ? (
+        <img src={img} alt="user image" />
+      ) : (
+        <FaUser className={style.avatar} />
+      )}
       <div className={style.name}>{name}</div>
       <div className={style.menu}>
         {menuItems.map((menu) => (

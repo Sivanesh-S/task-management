@@ -1,5 +1,5 @@
 export const reducerFunction = (state, action) => {
-  const { type, data } = action;
+  const { type } = action;
   switch (type) {
     default:
       throw new Error();

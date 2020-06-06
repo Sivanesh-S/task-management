@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { validateEmail } from '../utils';
 
 function SignUp() {
   const [fullName, setFullName] = useState('');

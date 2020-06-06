@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 
 // routing
 import { useHistory } from 'react-router-dom';
@@ -19,13 +19,8 @@ import { FaPlus } from 'react-icons/fa';
 import style from './Main.module.css';
 import { apiPrefix } from '../../constants';
 
-// state
-import { store } from '../../context/Store';
-
 function Main() {
   const history = useHistory();
-  const { state } = useContext(store);
-  console.log('state, state:', state);
 
   const authToken = localStorage.getItem('authToken');
 
@@ -37,7 +32,7 @@ function Main() {
       const userResponse = await api().get(`${apiPrefix}user`);
       console.log('userResponse:', userResponse);
     })();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!authToken) {
     history.push('/landing');

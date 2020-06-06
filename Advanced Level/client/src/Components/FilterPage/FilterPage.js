@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 // routing
@@ -41,5 +41,9 @@ function FilterPage() {
     </div>
   );
 }
+
+FilterPage.propTypes = {
+  filters: PropTypes.bool.isRequired,
+};
 
 export default FilterPage;

@@ -31,9 +31,13 @@ function Header() {
         }
         subTitle="[Beta]"
         extra={[
-          <FaSearch className={style.options} />,
-          <FaFilter className={style.options} onClick={openFilter} />,
-          <Avatar icon={<FaUser />} onClick={openRightMenu} />,
+          <FaSearch key="search" className={style.options} />,
+          <FaFilter
+            key="filter"
+            className={style.options}
+            onClick={openFilter}
+          />,
+          <Avatar key="avatar" icon={<FaUser />} onClick={openRightMenu} />,
         ]}
       ></PageHeader>
     </div>

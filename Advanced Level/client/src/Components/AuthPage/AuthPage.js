@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { useGoogleLogin } from 'react-google-login';
 
 // routing
@@ -9,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 import style from './AuthPage.module.css';
 
 // icons
-import { FaArrowLeft, FaUser } from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa';
 
 // components
 import { Typography, message } from 'antd';
@@ -27,7 +26,7 @@ function AuthPage(props) {
   const goMailLogin = () => history.push('./signin');
   const goMailSignup = () => history.push('./signup');
 
-  const [userId, setUserId] = useState('');
+  const [, setUserId] = useState('');
   // google oauth
   const clientId =
     '416982686383-bqno596si9butn9mato3a286tvgugi2d.apps.googleusercontent.com';
@@ -44,7 +43,7 @@ function AuthPage(props) {
     history.push('/', profileObj);
   };
 
-  const { signIn, loaded } = useGoogleLogin({
+  const { signIn } = useGoogleLogin({
     onSuccess,
     clientId,
     isSignedIn: true,
@@ -60,12 +59,16 @@ function AuthPage(props) {
           className={style.button}
           onClick={goMailLogin}
         >
-          <img src="/icons/email.svg" className={style.icon}></img>
+          <img src="/icons/email.svg" alt="email" className={style.icon}></img>
 
           <span className={style.buttonText}>Sign in with Email</span>
         </button>
         <button onClick={signIn} className={style.button}>
-          <img src="/icons/google.svg" className={style.icon}></img>
+          <img
+            src="/icons/google.svg"
+            alt="google login"
+            className={style.icon}
+          ></img>
 
           <span className={style.buttonText}>Sign in with Google</span>
         </button>

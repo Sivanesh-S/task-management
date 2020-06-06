@@ -1,11 +1,11 @@
 import React from 'react';
 import TaskItem from '../TaskItem/TaskItem';
 
-function TaskList({ tasks = [1] }) {
+function TaskList({ tasks = [{ taskId: 'wdcw4' }] }) {
   return (
     <div>
       {tasks.map((task) => (
-        <TaskItem />
+        <TaskItem key={task.taskId} />
       ))}
     </div>
   );
