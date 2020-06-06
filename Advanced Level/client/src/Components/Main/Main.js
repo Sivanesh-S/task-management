@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 // routing
 import { useHistory } from 'react-router-dom';
 
-import api from '../../utils/api';
+import { useFetch } from '../../hooks/useFetch';
 
 // components
 import Header from '../Header/Header';
@@ -19,20 +19,39 @@ import { FaPlus } from 'react-icons/fa';
 import style from './Main.module.css';
 import { apiPrefix } from '../../constants';
 
+// context
+import { store } from '../../context/Store';
+
 function Main() {
   const history = useHistory();
+  const [, userData, , userCall] = useFetch(`${apiPrefix}user`, 'GET');
+  const [tasksLoading, tasksData, tasksError, tasksCall] = useFetch(
+    `${apiPrefix}tasks`,
+    'GET'
+  );
+
+  const { state, dispatch } = useContext(store);
 
   const authToken = localStorage.getItem('authToken');
 
+  // didmount
   useEffect(() => {
-    (async () => {
-      if (!authToken) {
-        return;
-      }
-      const userResponse = await api().get(`${apiPrefix}user`);
-      console.log('userResponse:', userResponse);
-    })();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    userCall();
+    tasksCall();
+  }, []);
+
+  // user effect
+  useEffect(() => {
+    if (!userData) return;
+    dispatch({ type: 'GET_USER', data: userData });
+  }, [userData]);
+
+  // user effect
+  useEffect(() => {
+    if (!tasksData) return;
+    console.table('taskData', tasksData);
+    dispatch({ type: 'GET_TASKS', data: tasksData });
+  }, [tasksData]);
 
   if (!authToken) {
     history.push('/landing');
