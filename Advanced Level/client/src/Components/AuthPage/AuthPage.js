@@ -47,6 +47,9 @@ function AuthPage(props) {
     onSuccess,
     clientId,
     isSignedIn: true,
+    accessType: 'offline',
+    // responseType: 'code',
+    // prompt: 'consent',
   });
 
   return (

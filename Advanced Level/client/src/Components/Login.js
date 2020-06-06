@@ -23,6 +23,8 @@ function Login() {
     onSuccess,
     clientId,
     isSignedIn: true,
+    accessType: 'offline',
+    // responseType: 'code',
   });
 
   const onLogoutSuccess = () => {
