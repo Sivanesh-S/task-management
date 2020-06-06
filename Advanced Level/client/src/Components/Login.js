@@ -15,7 +15,7 @@ function Login() {
     fetch('/google/login', {
       method: 'POST',
       headers: {
-        Authorization: `token ${tokenId}`,
+        Authorization: `Bearer google ${tokenId}`,
       },
     });
   };
