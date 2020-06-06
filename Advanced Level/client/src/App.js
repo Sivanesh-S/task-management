@@ -15,7 +15,6 @@ import RightMenu from './Components/RightMenu/RightMenu';
 import { useGoogleLogin } from 'react-google-login';
 import { handleGoogleLogin } from './utils/googleLoginHandler';
 import { Spin } from 'antd';
-console.time('google');
 // google oauth
 const clientId =
   '416982686383-bqno596si9butn9mato3a286tvgugi2d.apps.googleusercontent.com';
@@ -32,7 +31,9 @@ function App() {
   });
   console.log('loaded:', loaded);
 
-  if (!loaded) {
+  const provider = localStorage.getItem('provider');
+
+  if (!loaded && provider === 'GOOGLE_AUTH') {
     return (
       <div className="loader">
         <div className="loaderDiv">
@@ -44,7 +45,6 @@ function App() {
       </div>
     );
   }
-  console.timeEnd('google');
 
   return (
     <div>
