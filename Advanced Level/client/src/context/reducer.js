@@ -20,6 +20,14 @@ export const reducerFunction = (state, action) => {
           ...taskNormalizer(data),
         },
       };
+    case 'GET_ARCHIVED':
+      return {
+        ...state,
+        archived: {
+          ...state.archived,
+          ...taskNormalizer(data),
+        },
+      };
 
     default:
       throw new Error('Type is not in reducer function. Go to reducer.js');

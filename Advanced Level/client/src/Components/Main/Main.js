@@ -29,6 +29,10 @@ function Main() {
     `${apiPrefix}tasks`,
     'GET'
   );
+  const [, archivedData, , archivedCall] = useFetch(
+    `${apiPrefix}archived`,
+    'GET'
+  );
 
   const { state, dispatch } = useContext(store);
 
@@ -38,6 +42,7 @@ function Main() {
   useEffect(() => {
     userCall();
     tasksCall();
+    archivedCall();
   }, []);
 
   // user effect
@@ -46,12 +51,19 @@ function Main() {
     dispatch({ type: 'GET_USER', data: userData });
   }, [userData]);
 
-  // user effect
+  // tasks effect
   useEffect(() => {
     if (!tasksData) return;
     console.table('taskData', tasksData);
     dispatch({ type: 'GET_TASKS', data: tasksData });
   }, [tasksData]);
+
+  // archived effect
+  useEffect(() => {
+    if (!archivedData) return;
+    console.table('taskData', archivedData);
+    dispatch({ type: 'GET_ARCHIVED', data: archivedData });
+  }, [archivedData]);
 
   if (!authToken) {
     history.push('/landing');
