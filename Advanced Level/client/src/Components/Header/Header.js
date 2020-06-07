@@ -63,7 +63,8 @@ function Header() {
       {isSearchOpen && (
         <Search
           placeholder="input search text"
-          onSearch={(value) => console.log(value)}
+          autoFocus={true}
+          onSearch={handleSearch}
           size="large"
           addonBefore={<FaArrowLeft onClick={handleSearchToggle} />}
           // style={{ width: 200 }}
