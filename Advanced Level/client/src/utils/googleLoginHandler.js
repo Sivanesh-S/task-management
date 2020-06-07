@@ -11,6 +11,7 @@ export const handleGoogleLogin = async (res, from, globals) => {
 
   localStorage.setItem('authToken', tokenId);
   localStorage.setItem('provider', 'GOOGLE_AUTH');
+  localStorage.setItem('email', profileObj.email);
   if (from === 'Auth') {
     await api().post('/google/login');
   }
