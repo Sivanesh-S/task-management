@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 // router
 import { useHistory } from 'react-router-dom';
@@ -12,12 +12,20 @@ import {
   FaArrowLeft,
 } from 'react-icons/fa';
 
+import { store } from '../../context/';
+
+import selectn from 'selectn';
+
 import style from './Header.module.css';
 // components
 import { Avatar, PageHeader, Input } from 'antd';
 const { Search } = Input;
 
 function Header() {
+  const { state, dispatch } = useContext(store);
+
+  const photoUrl = selectn('user.photoUrl', state);
+
   const history = useHistory();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [search, setSearch] = useState('');
@@ -57,7 +65,11 @@ function Header() {
             className={style.options}
             onClick={openFilter}
           />,
-          <Avatar key="avatar" icon={<FaUser />} onClick={openRightMenu} />,
+          photoUrl ? (
+            <Avatar key="avatar" src={photoUrl} onClick={openRightMenu} />
+          ) : (
+            <Avatar key="avatar" icon={<FaUser />} onClick={openRightMenu} />
+          ),
         ]}
       ></PageHeader>
       {isSearchOpen && (
