@@ -1,9 +1,7 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
 
 // routing
 import { useHistory } from 'react-router-dom';
-
-import { useFetch } from '../../hooks/useFetch';
 
 // components
 import Header from '../Header/Header';
@@ -17,54 +15,10 @@ import { FaPlus } from 'react-icons/fa';
 
 // style
 import style from './Main.module.css';
-import { apiPrefix } from '../../constants';
-
-// context
-import { store } from '../../context/Store';
 
 function Main() {
   const history = useHistory();
-  const [, userData, , userCall] = useFetch(`${apiPrefix}user`, 'GET');
-  const [tasksLoading, tasksData, tasksError, tasksCall] = useFetch(
-    `${apiPrefix}tasks`,
-    'GET'
-  );
-  const [, archivedData, , archivedCall] = useFetch(
-    `${apiPrefix}archived`,
-    'GET'
-  );
-
-  const { state, dispatch } = useContext(store);
-
   const authToken = localStorage.getItem('authToken');
-
-  // didmount
-  useEffect(() => {
-    userCall();
-    tasksCall();
-    archivedCall();
-  }, []);
-
-  // user effect
-  useEffect(() => {
-    if (!userData) return;
-    dispatch({ type: 'GET_USER', data: userData });
-  }, [userData]);
-
-  // tasks effect
-  useEffect(() => {
-    if (!tasksData) return;
-    console.table('taskData', tasksData);
-    dispatch({ type: 'GET_TASKS', data: tasksData });
-  }, [tasksData]);
-
-  // archived effect
-  useEffect(() => {
-    if (!archivedData) return;
-    console.table('taskData', archivedData);
-    dispatch({ type: 'GET_ARCHIVED', data: archivedData });
-  }, [archivedData]);
-
   if (!authToken) {
     history.push('/landing');
     return null;
