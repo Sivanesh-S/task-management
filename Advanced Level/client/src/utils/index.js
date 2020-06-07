@@ -25,3 +25,22 @@ export const daysDifference = (current, dueDate) => {
   const daysDiff = Math.floor(difference / 1000 / 60 / 60 / 24);
   return daysDiff;
 };
+
+export const getRandomColor = () => {
+  const colors = [
+    'magenta',
+    'red',
+    'yellow',
+    'volcano',
+    'orange',
+    'gold',
+    'lime',
+    'cyan',
+    'green',
+    'blue',
+    'purple',
+    'geekblue',
+  ];
+
+  return colors[Math.floor(Math.random() * colors.length)];
+};
