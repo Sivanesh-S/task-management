@@ -22,7 +22,7 @@ function TaskList() {
   const deleteTask = (taskId) => {};
 
   return (
-    <div>
+    <div style={{ marginBottom: '100px' }}>
       {Object.keys(tasks).map((taskId) => {
         const task = tasks[taskId];
         return (
