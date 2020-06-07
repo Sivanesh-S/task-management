@@ -27,14 +27,17 @@ function TaskRouter() {
     'GET'
   );
 
-  const { dispatch } = useContext(store);
+  const { dispatch, state } = useContext(store);
+  const { provider } = state;
 
   // didmount
   useEffect(() => {
-    userCall();
-    tasksCall();
-    archivedCall();
-  }, []);
+    if (localStorage.getItem('authToken')) {
+      userCall();
+      tasksCall();
+      archivedCall();
+    }
+  }, [provider]);
 
   // user effect
   useEffect(() => {
