@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+
+import { apiPrefix } from '../../constants';
+import api from '../../utils/api';
+
+import { store } from '../../context';
 
 // styles
 import style from './TaskItem.module.css';
 
 // components
-import { Card, Checkbox, Menu, Dropdown } from 'antd';
+import { Card, Checkbox, Menu, Dropdown, message } from 'antd';
 
 // Icons
 import { FaEllipsisV } from 'react-icons/fa';
@@ -16,19 +21,28 @@ import Labels from '../Labels/Labels';
 const onChange = () => {};
 
 function TaskItem(props) {
-  const {
-    taskId,
-    name,
-    status,
-    priority,
-    dueDate,
-    labels,
-    setCompleted,
-    deleteTask,
-    editTask,
-  } = props;
+  const { taskId, name, status, priority, dueDate, labels } = props;
 
   const history = useHistory();
+  const { dispatch } = useContext(store);
+
+  const editTask = () => {
+    history.push('/task', {
+      from: 'UPDATE',
+      task: { taskId, name, status, priority, dueDate, labels },
+    });
+  };
+
+  const deleteTask = async () => {
+    await api().delete(`${apiPrefix}tasks/${taskId}`);
+    message.success('Deleted the task');
+    dispatch({ type: 'DELETE_TASK', data: taskId });
+  };
+
+  const completeTask = async () => {
+    await api().post(`${apiPrefix}archived/${taskId}`);
+    message.success('');
+  };
 
   const menu = (
     <Menu>
@@ -40,10 +54,6 @@ function TaskItem(props) {
       </Menu.Item>
     </Menu>
   );
-
-  const handleChecked = () => {
-    setCompleted(taskId);
-  };
 
   const openUpdateTask = () => {
     history.push('/task', {
@@ -66,8 +76,8 @@ function TaskItem(props) {
       </Card> */}
       <Card className={style.task} hoverable size="small">
         <div className={style.container}>
-          <Checkbox onChange={handleChecked}>{name}</Checkbox>
-          <a className={style.option}>
+          <Checkbox onChange={completeTask}>{name}</Checkbox>
+          <a className={style.option} onClick={(e) => e.stopPropagation()}>
             <Dropdown overlay={menu} trigger={['click']}>
               <FaEllipsisV />
             </Dropdown>

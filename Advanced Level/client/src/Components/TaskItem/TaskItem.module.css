@@ -12,4 +12,9 @@
 .option {
   position: absolute;
   right: 0px;
+  cursor: pointer;
+}
+
+.option:hover {
+  border: 2px solid rgba(78, 79, 114, 0.8);
 }

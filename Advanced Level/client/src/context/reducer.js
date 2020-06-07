@@ -1,4 +1,4 @@
-import { taskNormalizer } from './reducerUtils';
+import { taskNormalizer, deleteTask } from './reducerUtils';
 
 export const reducerFunction = (state, action) => {
   const { type, data } = action;
@@ -26,6 +26,13 @@ export const reducerFunction = (state, action) => {
         archived: {
           ...state.archived,
           ...taskNormalizer(data),
+        },
+      };
+    case 'DELETE_TASK':
+      return {
+        ...state,
+        tasks: {
+          ...deleteTask(state.tasks, data),
         },
       };
     case 'LOGOUT':
