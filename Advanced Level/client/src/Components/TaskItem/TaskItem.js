@@ -21,7 +21,7 @@ import Labels from '../Labels/Labels';
 const onChange = () => {};
 
 function TaskItem(props) {
-  const { taskId, name, status, priority, dueDate, labels } = props;
+  const { taskId, name, status, priority, dueDate, labels, isDisabled } = props;
 
   const history = useHistory();
   const { dispatch } = useContext(store);
@@ -78,6 +78,7 @@ function TaskItem(props) {
       <Card className={style.task} hoverable size="small">
         <div className={style.container}>
           <Checkbox
+            disabled={isDisabled}
             onChange={completeTask}
             onClick={(e) => e.stopPropagation()}
           >

@@ -8,20 +8,15 @@ import { store } from '../../context';
 
 function TaskList() {
   const { state } = useContext(store);
-  const { tasks, archived } = state;
+  const { tasks, archived, isShowArchived } = state;
 
   if (!tasks || !archived) {
     return null;
   }
 
-  // task functions
-  const completeTask = (taskId) => {};
+  let showable = isShowArchived ? archived : tasks;
 
-  const editTask = (taskId) => {};
-
-  const deleteTask = (taskId) => {};
-
-  if (!Object.keys(tasks).length) {
+  if (!Object.keys(showable).length) {
     return (
       <div
         style={{
@@ -38,17 +33,9 @@ function TaskList() {
 
   return (
     <div style={{ marginBottom: '100px' }}>
-      {Object.keys(tasks).map((taskId) => {
-        const task = tasks[taskId];
-        return (
-          <TaskItem
-            key={taskId}
-            {...task}
-            completeTask={completeTask}
-            editTask={editTask}
-            deleteTask={deleteTask}
-          />
-        );
+      {Object.keys(showable).map((taskId) => {
+        const task = showable[taskId];
+        return <TaskItem key={taskId} {...task} isDisabled={isShowArchived} />;
       })}
     </div>
   );

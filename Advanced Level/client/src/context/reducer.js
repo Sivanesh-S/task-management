@@ -47,6 +47,12 @@ export const reducerFunction = (state, action) => {
           [data]: archivedTask,
         },
       };
+
+    case 'CHANGE_VIEW':
+      return {
+        ...state,
+        isShowArchived: data,
+      };
     case 'LOGOUT':
       return {};
     case 'LOGIN':

@@ -25,6 +25,7 @@ function Header() {
   const { state, dispatch } = useContext(store);
 
   const photoUrl = selectn('user.photoUrl', state);
+  const { tasks } = state;
 
   const history = useHistory();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -55,16 +56,16 @@ function Header() {
         }
         subTitle="[Beta]"
         extra={[
-          <FaSearch
-            key="search"
-            className={style.options}
-            onClick={handleSearchToggle}
-          />,
-          <FaFilter
-            key="filter"
-            className={style.options}
-            onClick={openFilter}
-          />,
+          // <FaSearch
+          //   key="search"
+          //   className={style.options}
+          //   onClick={handleSearchToggle}
+          // />,
+          // <FaFilter
+          //   key="filter"
+          //   className={style.options}
+          //   onClick={openFilter}
+          // />,
           photoUrl ? (
             <Avatar key="avatar" src={photoUrl} onClick={openRightMenu} />
           ) : (
