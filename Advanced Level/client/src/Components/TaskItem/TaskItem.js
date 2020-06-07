@@ -4,7 +4,7 @@ import React from 'react';
 import style from './TaskItem.module.css';
 
 // components
-import { Card, Checkbox } from 'antd';
+import { Card, Checkbox, Menu, Dropdown } from 'antd';
 
 // Icons
 import { FaEllipsisV } from 'react-icons/fa';
@@ -14,10 +14,37 @@ import Labels from '../Labels/Labels';
 // events
 const onChange = () => {};
 
-function TaskItem() {
+function TaskItem(props) {
+  const {
+    taskId,
+    name,
+    status,
+    priority,
+    dueDate,
+    labels,
+    setCompleted,
+    deleteTask,
+    editTask,
+  } = props;
+
+  const menu = (
+    <Menu>
+      <Menu.Item key="0" onClick={() => editTask(taskId)}>
+        Edit
+      </Menu.Item>
+      <Menu.Item key="1" onClick={() => deleteTask(taskId)}>
+        Delete
+      </Menu.Item>
+    </Menu>
+  );
+
+  const handleChecked = () => {
+    setCompleted(taskId);
+  };
+
   return (
-    <div>
-      <Card className={style.task} hoverable size="small">
+    <div style={{ overflowY: 'scroll' }}>
+      {/* <Card className={style.task} hoverable size="small">
         <div className={style.container}>
           <Checkbox onChange={onChange}>
             aa asdasdwdknew fhgwbd bw dwh4e d 4ewdh we asdasd asda da sd
@@ -26,15 +53,17 @@ function TaskItem() {
             <FaEllipsisV />
           </a>
         </div>
-      </Card>
+      </Card> */}
       <Card className={style.task} hoverable size="small">
         <div className={style.container}>
-          <Checkbox onChange={onChange}>aa asdasdq asd</Checkbox>
+          <Checkbox onChange={handleChecked}>{name}</Checkbox>
           <a className={style.option}>
-            <FaEllipsisV />
+            <Dropdown overlay={menu} trigger={['click']}>
+              <FaEllipsisV />
+            </Dropdown>
           </a>
         </div>
-        <TaskProperties />
+        <TaskProperties {...{ status, priority, dueDate }} />
         <Labels />
       </Card>
     </div>
