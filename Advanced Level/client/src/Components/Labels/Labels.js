@@ -9,9 +9,13 @@ import style from './Label.module.css';
 function Labels({ labels }) {
   return (
     <div className={style.parent}>
-      {labels.map((label) => {
+      {labels.map((label, index) => {
         const { name, color } = label;
-        return <Label color={color}>{name}</Label>;
+        return (
+          <Label key={index} color={color}>
+            {name}
+          </Label>
+        );
       })}
     </div>
   );
