@@ -6,11 +6,13 @@ import Label from './Label';
 // style
 import style from './Label.module.css';
 
-function Labels() {
+function Labels({ labels }) {
   return (
     <div className={style.parent}>
-      <Label color="crimson">Disney</Label>
-      <Label color="violet">Disney</Label>
+      {labels.map((label) => {
+        const { name, color } = label;
+        return <Label color={color}>{name}</Label>;
+      })}
     </div>
   );
 }

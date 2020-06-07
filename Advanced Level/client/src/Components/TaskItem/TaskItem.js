@@ -64,7 +64,7 @@ function TaskItem(props) {
           </a>
         </div>
         <TaskProperties {...{ status, priority, dueDate }} />
-        <Labels />
+        {labels && <Labels labels={labels} />}
       </Card>
     </div>
   );

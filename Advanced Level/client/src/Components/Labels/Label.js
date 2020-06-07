@@ -12,7 +12,7 @@ function Label({ children, color }) {
     // inlineStyle.color = color;
   }
   return (
-    <Tag color="cyan" className={style.child}>
+    <Tag color={color || 'cyan'} className={style.child}>
       {children}
     </Tag>
   );

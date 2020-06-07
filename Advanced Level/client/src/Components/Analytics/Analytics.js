@@ -31,11 +31,11 @@ function Analytics() {
       <Row>
         <Col span={12} style={{ textAlign: 'right', paddingRight: '15px' }}>
           <span>Task Completed: </span>
-          <span>{`${tasksCount}/${totalCount}`}</span>
+          <span>{`${archivedCount}/${totalCount}`}</span>
         </Col>
         <Col span={12}>
           <Progress
-            percent={(tasksCount / totalCount) * 100}
+            percent={(archivedCount / totalCount) * 100}
             // successPercent={25} // if possible check and getList of in progress and add them
             // status="active"
             showInfo={false}
