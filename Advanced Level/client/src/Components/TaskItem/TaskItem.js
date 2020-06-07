@@ -43,7 +43,7 @@ function TaskItem(props) {
   };
 
   return (
-    <div style={{ overflowY: 'scroll' }}>
+    <div>
       {/* <Card className={style.task} hoverable size="small">
         <div className={style.container}>
           <Checkbox onChange={onChange}>
