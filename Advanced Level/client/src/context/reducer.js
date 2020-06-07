@@ -28,7 +28,13 @@ export const reducerFunction = (state, action) => {
           ...taskNormalizer(data),
         },
       };
-
+    case 'LOGOUT':
+      return {};
+    case 'LOGIN':
+      return {
+        provider: data.provider,
+        authToken: data.authToken,
+      };
     default:
       throw new Error('Type is not in reducer function. Go to reducer.js');
   }

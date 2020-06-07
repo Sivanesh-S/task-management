@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useGoogleLogin } from 'react-google-login';
+
+import { store } from '../../context';
 
 // routing
 import { useHistory } from 'react-router-dom';
@@ -17,6 +19,7 @@ import { handleGoogleLogin } from '../../utils/googleLoginHandler';
 const { Title } = Typography;
 
 function AuthPage(props) {
+  const { dispatch } = useContext(store);
   const history = useHistory();
 
   if (localStorage.getItem('provider') && localStorage.getItem('authToken')) {
@@ -36,6 +39,7 @@ function AuthPage(props) {
     await handleGoogleLogin(res, 'Auth');
     message.success(`${profileObj.name} Welcome to Twelve notes`);
     history.push('/', profileObj);
+    dispatch({ type: 'LOGIN', data: { provider: 'GOOGLE_AUTH' } });
   };
 
   const { signIn } = useGoogleLogin({
