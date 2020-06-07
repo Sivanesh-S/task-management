@@ -1,22 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // router
 import { useHistory } from 'react-router-dom';
 
 // icons
-import { FaSearch, FaRegStickyNote, FaFilter, FaUser } from 'react-icons/fa';
-
-// components
-import { Avatar, PageHeader } from 'antd';
+import {
+  FaSearch,
+  FaRegStickyNote,
+  FaFilter,
+  FaUser,
+  FaArrowLeft,
+} from 'react-icons/fa';
 
 import style from './Header.module.css';
+// components
+import { Avatar, PageHeader, Input } from 'antd';
+const { Search } = Input;
 
 function Header() {
   const history = useHistory();
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [search, setSearch] = useState('');
 
   // routings
   const openRightMenu = () => history.push('/userInfo');
   const openFilter = () => history.push('/filter');
+
+  const handleSearchToggle = () => setIsSearchOpen((prev) => !prev);
+
+  const handleSearch = (value) => {
+    setSearch(value);
+
+    // store
+  };
 
   return (
     <div className={style.header}>
@@ -31,7 +47,11 @@ function Header() {
         }
         subTitle="[Beta]"
         extra={[
-          <FaSearch key="search" className={style.options} />,
+          <FaSearch
+            key="search"
+            className={style.options}
+            onClick={handleSearchToggle}
+          />,
           <FaFilter
             key="filter"
             className={style.options}
@@ -40,6 +60,15 @@ function Header() {
           <Avatar key="avatar" icon={<FaUser />} onClick={openRightMenu} />,
         ]}
       ></PageHeader>
+      {isSearchOpen && (
+        <Search
+          placeholder="input search text"
+          onSearch={(value) => console.log(value)}
+          size="large"
+          addonBefore={<FaArrowLeft onClick={handleSearchToggle} />}
+          // style={{ width: 200 }}
+        />
+      )}
     </div>
   );
 }
