@@ -42,6 +42,7 @@ function TaskItem(props) {
   const completeTask = async () => {
     await api().post(`${apiPrefix}archived/${taskId}`);
     message.success('');
+    dispatch({ type: 'ADD_TO_ARCHIVE', data: taskId });
   };
 
   const menu = (
@@ -76,7 +77,12 @@ function TaskItem(props) {
       </Card> */}
       <Card className={style.task} hoverable size="small">
         <div className={style.container}>
-          <Checkbox onChange={completeTask}>{name}</Checkbox>
+          <Checkbox
+            onChange={completeTask}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {name}
+          </Checkbox>
           <a className={style.option} onClick={(e) => e.stopPropagation()}>
             <Dropdown overlay={menu} trigger={['click']}>
               <FaEllipsisV />

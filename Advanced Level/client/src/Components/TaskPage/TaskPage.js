@@ -127,6 +127,7 @@ function TaskPage(props) {
         <form onSubmit={onSubmit} method="POST">
           <Title className={style.heading + ' center'}>{buttonText}</Title>
           <Input
+            autoFocus={true}
             placeholder={'Task name'}
             onChange={setName}
             className={style.input}

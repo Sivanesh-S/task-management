@@ -35,6 +35,18 @@ export const reducerFunction = (state, action) => {
           ...deleteTask(state.tasks, data),
         },
       };
+    case 'ADD_TO_ARCHIVE':
+      const archivedTask = state.tasks[data];
+      return {
+        ...state,
+        tasks: {
+          ...deleteTask(state.tasks, data),
+        },
+        archived: {
+          ...state.archived,
+          [data]: archivedTask,
+        },
+      };
     case 'LOGOUT':
       return {};
     case 'LOGIN':

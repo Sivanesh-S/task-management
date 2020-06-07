@@ -32,7 +32,7 @@ function Main() {
       <Analytics />
       <ViewSelect />
       <TaskList />
-      <BottomTabs />
+      {/* <BottomTabs /> */}
 
       <FaPlus className={style.addButton} onClick={openAdd} />
     </div>

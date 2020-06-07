@@ -21,6 +21,21 @@ function TaskList() {
 
   const deleteTask = (taskId) => {};
 
+  if (!Object.keys(tasks).length) {
+    return (
+      <div
+        style={{
+          marginTop: '90px',
+          padding: '20px',
+          fontSize: '2em',
+          textAlign: 'center',
+        }}
+      >
+        To create one press + button
+      </div>
+    );
+  }
+
   return (
     <div style={{ marginBottom: '100px' }}>
       {Object.keys(tasks).map((taskId) => {

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { store } from '../../context';
 
 // hooks
 import { useInput, usePrevious } from '../../hooks';
@@ -21,6 +22,8 @@ import { Typography, Input, message } from 'antd';
 const { Title } = Typography;
 
 function SignUpEmail(props) {
+  const { dispatch } = useContext(store);
+
   const [email, setEmail] = useInput('');
   const [fullName, setFullName] = useInput('');
   const [password, setPassword] = useInput('');
@@ -62,9 +65,10 @@ function SignUpEmail(props) {
 
         if (token) {
           localStorage.setItem('authToken', token);
-          localStorage.setItem('provider', 'basic');
+          localStorage.setItem('provider', 'BASIC');
           history.push('/');
           message.success(`Welcome To Twelve Tasks ${fullName}`);
+          dispatch({ type: 'LOGIN', data: { provider: 'BASIC' } });
         } else {
           setMsg("There's some issue in signup");
         }

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { store } from '../../context';
 
 // hooks
 import { useInput, usePrevious } from '../../hooks';
@@ -20,6 +21,8 @@ import { Typography, Input, message } from 'antd';
 const { Title } = Typography;
 
 function LoginEmail(props) {
+  const { dispatch } = useContext(store);
+
   // inputs
   const [email, setEmail] = useInput('');
   const [password, setPassword] = useInput('');
@@ -63,9 +66,10 @@ function LoginEmail(props) {
         const { token, fullName } = await response.json();
 
         localStorage.setItem('authToken', token);
-        localStorage.setItem('provider', 'basic');
+        localStorage.setItem('provider', 'BASIC');
         history.push('/');
         message.success(`Welcome To Twelve Tasks ${fullName}`);
+        dispatch({ type: 'LOGIN', data: { provider: 'BASIC' } });
       }
     }
   };

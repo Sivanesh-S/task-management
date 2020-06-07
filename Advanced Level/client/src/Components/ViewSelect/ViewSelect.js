@@ -11,24 +11,12 @@ import style from './ViewSelect.module.css';
 
 const views = [
   {
-    name: 'All World',
+    name: 'All Tasks',
     value: 'all',
   },
   {
-    name: 'Labels World',
-    value: 'label',
-  },
-  {
-    name: 'Status World',
-    value: 'status',
-  },
-  {
-    name: 'Due Date World',
-    value: 'duedate',
-  },
-  {
-    name: 'Priority World',
-    value: 'priority',
+    name: 'Archived Tasks',
+    value: 'archived',
   },
 ];
 
