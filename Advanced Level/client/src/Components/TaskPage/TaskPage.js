@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { useInput } from '../../hooks';
 
+import selectn from 'selectn';
+
 // routing
 import { useHistory } from 'react-router-dom';
 import api from '../../utils/api';
@@ -25,12 +27,17 @@ const { Title } = Typography;
 const { Option } = Select;
 
 function TaskPage(props) {
+  const { state } = props.location;
+  const from = selectn('from', state);
+  const task = selectn('task', state) || {};
+
   const { dispatch } = useContext(store);
-  const [name, setName] = useInput(props.name);
-  const [status, setStatus] = useState(props.status);
-  const [priority, setPriority] = useState(props.priority);
-  const [dueDate, setDueDate] = useState(props.dueDate);
-  const [labels, setLabels] = useState(props.labels);
+
+  const [name, setName] = useInput(task.name || '');
+  const [status, setStatus] = useState(task.status || '');
+  const [priority, setPriority] = useState(task.priority || '');
+  const [dueDate, setDueDate] = useState(task.dueDate || '');
+  const [labels, setLabels] = useState(task.labels || []);
   const [labelInput, setLabelInput] = useState('');
 
   const history = useHistory();
@@ -38,7 +45,7 @@ function TaskPage(props) {
   // routing
   const backToMain = () => history.push('/');
 
-  const buttonText = props.from === 'UPDATE' ? 'Update Task' : 'Add Task';
+  const buttonText = from === 'UPDATE' ? 'Update Task' : 'Add Task';
 
   // events
 
@@ -54,8 +61,8 @@ function TaskPage(props) {
       dueDate
     );
 
-    if (props.from === 'UPDATE') {
-      await api().put(`${apiPrefix}tasks/${props.taskId}`, {
+    if (from === 'UPDATE') {
+      await api().put(`${apiPrefix}tasks/${task.taskId}`, {
         name,
         status,
         priority,
@@ -74,7 +81,7 @@ function TaskPage(props) {
 
     const tasks = await api().get(`${apiPrefix}/tasks`);
     dispatch({ type: 'GET_TASKS', data: tasks.data });
-    message.success('Task Added');
+    message.success(from === 'UPDATE' ? 'Task Updated' : 'Task Added');
     history.push('/');
   };
 
@@ -102,14 +109,25 @@ function TaskPage(props) {
     setDueDate(correctDateString);
   }
 
+  const prioritySelectObj = priority
+    ? {
+        value: priority,
+      }
+    : {};
+  const statusSelectObj = status
+    ? {
+        value: status,
+      }
+    : {};
+
   return (
     <div className={style.page}>
       <FaArrowLeft className={style.back} onClick={backToMain} />
       <div className={style.container}>
         <form onSubmit={onSubmit} method="POST">
-          <Title className={style.heading + ' center'}>Add Task</Title>
+          <Title className={style.heading + ' center'}>{buttonText}</Title>
           <Input
-            placeholder={'Add Task'}
+            placeholder={'Task name'}
             onChange={setName}
             className={style.input}
             value={name}
@@ -132,7 +150,7 @@ function TaskPage(props) {
           <Select
             className={style.input}
             bordered={false}
-            // defaultValue="default"
+            {...statusSelectObj}
             placeholder={'Set Status'}
             style={{ textAlign: 'left' }}
             onChange={(value) => setStatus(value)}
@@ -145,6 +163,7 @@ function TaskPage(props) {
           <Select
             placeholder={'Set Priority'}
             className={style.input}
+            {...prioritySelectObj}
             bordered={false}
             style={{ textAlign: 'left' }}
             onChange={(value) => setPriority(value)}
@@ -192,13 +211,5 @@ function TaskPage(props) {
     </div>
   );
 }
-
-TaskPage.defaultProps = {
-  name: '',
-  dueDate: '',
-  status: '',
-  labels: [],
-  priority: '',
-};
 
 export default TaskPage;

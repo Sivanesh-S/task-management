@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 // styles
 import style from './TaskItem.module.css';
@@ -27,6 +28,8 @@ function TaskItem(props) {
     editTask,
   } = props;
 
+  const history = useHistory();
+
   const menu = (
     <Menu>
       <Menu.Item key="0" onClick={() => editTask(taskId)}>
@@ -42,8 +45,15 @@ function TaskItem(props) {
     setCompleted(taskId);
   };
 
+  const openUpdateTask = () => {
+    history.push('/task', {
+      from: 'UPDATE',
+      task: { taskId, name, status, priority, dueDate, labels },
+    });
+  };
+
   return (
-    <div>
+    <div onClick={openUpdateTask}>
       {/* <Card className={style.task} hoverable size="small">
         <div className={style.container}>
           <Checkbox onChange={onChange}>
