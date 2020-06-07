@@ -16,7 +16,10 @@ function TaskProperty(props) {
           color: iconColor,
         },
       })}
-      <span style={{ color: propertyColor }} className={style.size}>
+      <span
+        style={{ color: text === 'expired' ? 'crimson' : propertyColor }}
+        className={style.size}
+      >
         {text}
       </span>
     </span>
