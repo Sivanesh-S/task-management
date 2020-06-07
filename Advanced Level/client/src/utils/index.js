@@ -19,3 +19,9 @@ export function isInvalidPassword(password) {
   }
   return false;
 }
+
+export const daysDifference = (current, dueDate) => {
+  const difference = dueDate - current;
+  const daysDiff = Math.floor(difference / 1000 / 60 / 60 / 24);
+  return daysDiff;
+};
