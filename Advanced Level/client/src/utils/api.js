@@ -29,4 +29,8 @@ const getAPI = () => {
   return api;
 };
 
+export const clearAPI = () => {
+  api = null;
+};
+
 export default getAPI;
