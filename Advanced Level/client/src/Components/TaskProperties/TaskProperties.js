@@ -18,7 +18,7 @@ function TaskProperties(props) {
 
   let dueDateString = null;
   if (dueDate) {
-    dueDateString = daysDifference(+new Date(), +dueDate);
+    dueDateString = daysDifference(+new Date(), +new Date(dueDate));
     console.log('dueDateString:', dueDateString);
 
     if (dueDateString < 0) {
