@@ -12,8 +12,8 @@ function TaskProperties(props) {
   const { priority, status, dueDate } = props;
 
   let statusIcon = null;
-  if (status === 'open') statusIcon = FaBookOpen;
-  else if (status === 'in progress') statusIcon = FaBookReader;
+  if (status === 'Open') statusIcon = FaBookOpen;
+  else if (status === 'In Progress') statusIcon = FaBookReader;
   else statusIcon = FaBook;
 
   let dueDateString = null;
